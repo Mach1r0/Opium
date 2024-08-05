@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class TenisConfig(AppConfig):
+class SnearksConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'tenis'
+    name = 'snearks'
