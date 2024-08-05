@@ -2,6 +2,13 @@ from django.db import models
 from brand.models import Brand
 
 class Product(models.Model):
+    TYPE = [
+        ('tshit', 'tshit'), 
+        ('sneaker', 'sneaker'),
+        ('pants', 'pants'), 
+    ]
+
+    type = models.CharField(choices=TYPE, max_length=40)
     name = models.CharField(max_length=50, null=False, blank=False)
     tamanho = models.FloatField()
     image = models.ImageField(upload_to='snkrs-img/')
