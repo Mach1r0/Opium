@@ -1,0 +1,12 @@
+.containerAll {
+  background-color: bisque;
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+}
+
+.container-contato{
+  background-color: black;
+  color: white;
+  height: 100px;
+}
