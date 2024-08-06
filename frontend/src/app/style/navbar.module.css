@@ -1,0 +1,72 @@
+.container-all {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: black;
+  padding-right: 40px;
+  padding-left: 40px;
+}
+
+.container-logo {
+  display: flex;
+  align-items: center;
+}
+
+
+.container-logo h1{
+    font-size: 30px;
+    font-family: 'Kodchasan';
+    font-weight: bold;
+    color: white;
+}
+
+.container-logo img {
+  width: 100px;
+  height: 100px; 
+}
+
+.search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  color: #aaa;
+}
+
+.search-input {
+  padding-left: 30px; 
+  background-color: white;
+  color: white; 
+  border-radius: 109px;
+  height: 33px; 
+  width: 411px;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  left: 40px;
+}
+
+.menu-btn {
+  margin-right: 10px;
+  border: 1px solid white;
+  width: 126px;
+  height: 34px;
+  color: black;
+  border-radius: 10px;
+  background-color: white;
+  font-size: 21px;
+  font-weight: bold;
+}
+
+.dropdown {
+  cursor: pointer;
+  color: white;
+  height: 36px;
+  width: 39px;    
+}
