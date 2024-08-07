@@ -1,0 +1,23 @@
+.container-all{
+    display: flex;
+    background-color: aqua;
+    height: 100vh;
+    flex-direction: column;
+}
+
+.container-content{
+    display: flex;
+    flex-direction: column;
+    background-color: violet;
+    height: 100%;
+    width: 65%;
+}
+
+    
+.container-form{
+    color: black;
+    display: flex;
+    background-color: brown;
+    height: 100%;
+    flex-direction: column;
+}
