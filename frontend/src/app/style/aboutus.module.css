@@ -11,16 +11,16 @@
     color: white;
     text-align: justify;
     padding: 4em 9em;
-}
 
-.title {
-    font-weight: bold;
-    font-size: 2rem;
-}
+    .title {
+        font-weight: bold;
+        font-size: 2rem;
+    }
 
-.text {
-    font-size: 1.5rem;
-    margin-top: 3vh;
+    .text {
+        font-size: 1.5rem;
+        margin-top: 3vh;
+    }
 }
 
 .horizontal-bar {
