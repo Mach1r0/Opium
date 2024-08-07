@@ -12,6 +12,7 @@ export default function login() {
                 <input type="Senha" placeholder="Senha" />
                 <button> Entrar </button>
             </div>
+
         
         <div className={Style['container-leftSide']}>
                 <h1> Ainda não tem conta? </h1>

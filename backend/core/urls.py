@@ -9,13 +9,12 @@ from products.views import ProductsViewSet
 
 router = routers.DefaultRouter()
 router.register(r'brand', BrandViewSet, basename='brand')
-router.register(r'user', UserViewSet, basename='user')
 router.register(r'cart', CartViewSet, basename='cart')
+router.register(r'user', UserViewSet, basename='user')
 router.register(r'orders', OrderViewSet, basename='orders')
 router.register(r'products', ProductsViewSet, basename='products')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('user/', include('user.urls')),
     path('', include(router.urls)),
 ]
