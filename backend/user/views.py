@@ -6,7 +6,8 @@ from rest_framework.views import APIView
 from django.contrib.auth import authenticate
 from rest_framework import status
 from rest_framework.exceptions import AuthenticationFailed
-import logging, jwt, datetime
+import logging, datetime
+import jwt
 from rest_framework.response import Response
 from django.conf import settings
 
@@ -36,7 +37,7 @@ class Login(APIView):
         user = authenticate(request, nickname=nickname, password=password)
 
         if user is None:
-            logger.error(f'Invalid crendentials for nickname:' {nickname})
+            logger.error(f'Invalid crendentials for nickname:', {nickname})
             raise AuthenticationFailed('Invalid credentials')
         
         payload = {
