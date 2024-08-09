@@ -1,10 +1,10 @@
 from rest_framework import serializers
-from user.models import User
+from user.models import User, Address
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'nome', 'nickname', 'email', 'password', 'wishlist']
+        fields = ['nome', 'username', 'email', 'password']
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
@@ -18,3 +18,8 @@ class UserSerializer(serializers.ModelSerializer):
             instance.set_password(validated_data['password'])
             validated_data.pop('password')
         return super().update(instance, validated_data)
+    
+class AddressSerializer(serializers.ModelSerializer):
+    class Meta: 
+        model = Address
+        exclude = ['modified']

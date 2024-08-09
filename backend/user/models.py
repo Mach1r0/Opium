@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
-from django.contrib.auth.models import BaseUserManager
+from core.models import TimeStampedModel
 
 class UserManager(BaseUserManager):
     use_in_migrations = True
@@ -13,10 +13,10 @@ class UserManager(BaseUserManager):
             raise ValueError('The username must be set')
         
         user = self.model(
-            email = self.normalize_email(email),
-            nome = nome, 
-            username = username,
-            )
+            email=self.normalize_email(email),
+            nome=nome, 
+            username=username,
+        )
         user.set_password(password)  
         user.save(using=self._db)
         
@@ -38,6 +38,7 @@ class User(AbstractUser):
     username = models.CharField(unique=True, max_length=100, null=False, blank=False) 
     email = models.EmailField(max_length=40, unique=True, blank=False, null=False)
     phone = models.CharField(max_length=50, null=True)
+    picture = models.ImageField(upload_to='users-img', null=True, blank=True)
 
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
@@ -50,10 +51,9 @@ class User(AbstractUser):
     def __str__(self):
         return self.nome
     
-class UserProfile(models.Model):
+class Address(TimeStampedModel):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     adress = models.CharField(max_length=100, null=True, blank=True)
-    picture = models.ImageField(upload_to='users-img', null=True, blank=True)
     city = models.CharField(max_length=100, null=True, blank=True)
     country = models.CharField(max_length=100, null=True, blank=True)
 
