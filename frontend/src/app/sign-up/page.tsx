@@ -1,19 +1,21 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Style from "../style/signup.module.css";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { BiLogoGmail } from "react-icons/bi";
+import { FaFacebookF, FaApple } from "react-icons/fa";
 
 export default function Signup() {
+
   const [email, setEmail] = useState("");
   const [nome, setNome] = useState("");
-  const router = useRouter();
   const [nickname, setNickname] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
+  const router = useRouter();
 
-  const handleSignup = async (event) => {
+  const handleSignup = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (password !== confirmPassword) {
@@ -43,50 +45,71 @@ export default function Signup() {
     }
   };
 
+  const handleRedirect = (url: string) => {
+    window.open(url, "_blank");
+  };
+
   return (
     <div className={Style["container-all"]}>
       <div className={Style["container-content"]}>
-        <h1> Cadastre-se </h1>
-        <div className={Style["container-form"]}>
-          <input
+        <h1> CADASTRE-SE </h1>
+        <form className={Style["container-form"]} onSubmit={handleSignup}>
+          <input 
+            className={Style["signup-input"]}
             type="text"
             placeholder="Nome"
             value={nome}
             onChange={(e) => setNome(e.target.value)}
           />
           <input
-            type="text"
-            placeholder="Nickname"
+            className={Style["signup-input"]}
+            type="email"
+            placeholder="Email"
             value={nickname}
             onChange={(e) => setNickname(e.target.value)}
           />
           <input
-            type="email"
-            placeholder="Email"
+            className={Style["signup-input"]}
+            type="password"
+            placeholder="Senha"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
           <input
+            className={Style["signup-input"]}
             type="password"
-            placeholder="Senha"
+            placeholder="Confirmar senha"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <input
-            type="password"
-            placeholder="Confirmar Senha"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
-          <button type="submit" onClick={handleSignup}>Cadastrar</button>
-          {error && <p className="error">{error}</p>}
-        </div>
+
+          <button className={Style["btn-signup"]} type="submit">Cadastrar</button>
+          {error && <p className={Style["error"]}>{error}</p>} 
+        </form>
       </div>
+
       <div className={Style["container-leftSide"]}>
-        <h1> Cadastrar usando minhas redes sociais </h1>
-        <button>
-          <Link href="/sign-up" type="submit">CADASTRAR</Link>
-        </button>
+        <h1> CADASTRAR USANDO MINHAS REDES SOCIAIS </h1>
+        <div className={Style["signup-container"]}>
+          <button 
+            className={Style["signup-icon"]}
+            onClick={() => handleRedirect("https://accounts.google.com/signin")}
+          >
+            <BiLogoGmail />
+          </button>
+          <button 
+            className={Style["signup-icon"]}
+            onClick={() => handleRedirect("https://www.facebook.com/login")}
+          >
+            <FaFacebookF />
+          </button>
+          <button 
+            className={Style["signup-icon"]}
+            onClick={() => handleRedirect("https://appleid.apple.com/account")}
+          >
+            <FaApple />
+          </button>
+        </div>
       </div>
     </div>
   );

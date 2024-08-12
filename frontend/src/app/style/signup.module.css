@@ -1,22 +1,71 @@
 .container-all{
     display: flex;
-    background-color: aqua;
+    background-color: black;
+    color: white;
     height: 100vh;
 }
 
 .container-content{
     display: flex;
     flex-direction: column;
-    background-color: violet;
+    background-color: white;
     height: 100%;
     width: 65%;
+    color: black;
 }
 
-    
-.container-form{
+.container-content h1 {
+    margin-top: 15vh;
+    text-align: center;
+    padding: 5vh;
+    font-size: 2.5rem;
+    font-weight: 600;
+}
+   
+.container-form {
     color: black;
     display: flex;
-    background-color: brown;
+    background-color: white;
     height: 100%;
     flex-direction: column;
+    align-items: center;
+    gap: 3vh;
+}
+
+.signup-input {
+    border: 1.5px solid #8B8B8B;
+    border-radius: 20px;
+    width: 23vw;
+    padding: 5px 15px;
+}
+
+.btn-signup {
+    margin-top: 5vh;
+    background-color: black;
+    color: white;
+    padding: 4px 40px;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+.container-leftSide h1 {
+    font-size: 2rem;
+    padding: 1vh;
+    text-align: center;
+    margin-top: 30vh;
+}
+
+.signup-container {
+    display: flex; 
+    gap: 5px; 
+    justify-content: center;
+}
+
+.signup-icon {
+    background-color: white;
+    color: black;
+    padding: 30px;
+    margin: 5vh;
+    cursor: pointer;
+    font-size: 45px;
 }
