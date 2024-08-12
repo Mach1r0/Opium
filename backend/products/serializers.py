@@ -1,8 +1,14 @@
 from rest_framework import serializers
-from products.models import Product
+from .models import Product, Category
+
+class CategorySerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Category
+        fields = ['description', 'name', 'icon']  
 
 class ProductsSerializer(serializers.HyperlinkedModelSerializer):
+    category = serializers.SlugRelatedField(slug_field='name', queryset=Category.objects.all())
+    
     class Meta:
-        model = Product 
-        fields = '__all__'
-        
+        model = Product
+        exclude = ['modified']

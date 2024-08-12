@@ -1,6 +1,8 @@
+from django.utils import timezone
 from django.db import models
 from brand.models import Brand
 from core.models import TimeStampedModel   
+from user.models import User 
 
 class Category(TimeStampedModel):
     name = models.CharField(max_length=100, unique=True)
@@ -16,11 +18,17 @@ class Product(TimeStampedModel):
         ('sneaker', 'Sneaker'),
         ('pants', 'Pants'), 
     ]
+    Status = [
+        ('used', 'Used'),
+        ('new', 'New'),
+    ]
 
+    status = models.CharField(choices=Status, max_length=40, verbose_name="Product Status", default='new')
+    seller = models.ForeignKey(User, on_delete=models.CASCADE) 
     type = models.CharField(choices=TYPE, max_length=40, verbose_name="Product Type")
     name = models.CharField(max_length=50, null=False, blank=False, verbose_name="Product Name")
-    quantity = models.PositiveIntegerField(verbose_name="Quantity in Stock")
-    size = models.FloatField(verbose_name="Size")
+    quantity = models.PositiveIntegerField(verbose_name="Quantity in Stock", default=1)
+    size = models.FloatField(verbose_name="Size", default=1)
     image = models.ImageField(upload_to='snkrs-img/', verbose_name="Product Image")
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, blank=False, null=False, related_name="products")
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Price")

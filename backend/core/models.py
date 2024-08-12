@@ -1,5 +1,7 @@
+# core/models.py
 from django.db import models
 from .managers import SoftDeleteManager
+from django.utils import timezone
 
 class TimeStampedModel(models.Model):
     created = models.DateTimeField(db_index=True, auto_now_add=True)
