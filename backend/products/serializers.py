@@ -12,3 +12,4 @@ class ProductsSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Product
         exclude = ['modified']
+

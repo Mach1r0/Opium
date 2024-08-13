@@ -6,4 +6,5 @@ from brand.serializers import BrandSerializer
 class BrandViewSet(viewsets.ModelViewSet):
     queryset = Brand.objects.all()
     serializer_class = BrandSerializer
-    
+
+    def create(self, request, *args, **kwargs):

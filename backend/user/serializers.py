@@ -106,9 +106,8 @@ class UserSerializer(serializers.ModelSerializer):
 class AddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = Address
-        exclude = ["modified"]
-
+        exclude = "modified"
 class CreateAddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = Address
-        exclude = ["primary", "user"]
+        fields = "__all__"
