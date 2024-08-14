@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 from django.utils.text import slugify
 from core.models import TimeStampedModel
+from rest_framework import serializers
 
 class UserManager(BaseUserManager):
     def create_user(self, nome, email, nickname, password=None, **extra_fields):
@@ -27,13 +28,21 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractUser):
+    GENDER_CHOICES = (
+        ('M', 'Male'),
+        ('F', 'Female'),
+        ('O', 'Other'),
+    )
+
     username = None 
+    about = models.TextField(("about"), max_length=500, blank=True, null=True)
     nome = models.CharField(max_length=100, null=False, blank=False) 
     nickname = models.CharField(unique=True, max_length=100, null=False, blank=False) 
     email = models.EmailField(max_length=40, unique=True, blank=False, null=False)
     phone = models.CharField(max_length=50, null=True, blank=True)
     picture = models.ImageField(upload_to='users-img', null=True, blank=True)
     slug = models.SlugField(unique=True, blank=True)
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True, null=True)
 
     is_active = models.BooleanField(default=True)
 
@@ -51,7 +60,7 @@ class User(AbstractUser):
         super().save(*args, **kwargs)
         
 class Address(TimeStampedModel):
-    user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     address = models.CharField(max_length=100, null=True, blank=True)
     city = models.CharField(max_length=100, null=True, blank=True)
     country = models.CharField(max_length=100, null=True, blank=True)

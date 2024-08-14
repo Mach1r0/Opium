@@ -83,7 +83,6 @@ class UserSerializer(serializers.ModelSerializer):
     gender = serializers.SerializerMethodField()
     slug = serializers.SlugField(read_only=True)
 
-    
     def get_gender(self, obj):
         return obj.get_gender_display()
 
@@ -106,7 +105,7 @@ class UserSerializer(serializers.ModelSerializer):
 class AddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = Address
-        exclude = "modified"
+        exclude = ["modified" ]
 class CreateAddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = Address

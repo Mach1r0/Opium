@@ -12,6 +12,7 @@ router.register(r'brand', BrandViewSet, basename='brand')
 router.register(r'user', UserViewSet, basename='user')
 router.register(r'orders', OrderViewSet, basename='orders')
 router.register(r'products', ProductsViewSet, basename='products')
+router.register(r'cart', CartViewSet, basename='cart')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -19,5 +20,6 @@ urlpatterns = [
     path('orders/', include('orders.urls')), 
     path('products/', include('products.urls')), 
     path('cart/', include('cart.urls')),
+    path("brand/", include('brand.urls')),
     path('', include(router.urls)),
 ]

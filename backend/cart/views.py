@@ -1,50 +1,67 @@
-from django.shortcuts import render, get_object_or_404
-from rest_framework import viewsets, status
+from django.shortcuts import get_object_or_404
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework import permissions, viewsets, status
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.exceptions import NotAcceptable, ValidationError, PermissionDenied
+from django.utils.translation import gettext_lazy as _
 from .models import Cart, CartItem
 from products.models import Product
-from .serializers import CartItemSerializer, CartSerializer
+from .serializers import CartItemSerializer, CartItemUpdateSerializer, CartSerializer
+
 
 class CartViewSet(viewsets.ModelViewSet):
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
-class CartItemViewSet(viewsets.ViewSet):
-    permission_classes = [IsAuthenticated]
 
-    def list(self, request):
-        user = request.user
-        queryset = CartItem.objects.filter(cart__user=user)
-        serializer = CartItemSerializer(queryset, many=True)
-        return Response(serializer.data)
+class CartItemListCreateAPIView(ListCreateAPIView):
+    serializer_class = CartItemSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
-    def create(self, request):
-        user = request.user
+    def get_queryset(self):
+        return CartItem.objects.filter(cart__user=self.request.user)
+
+    def perform_create(self, serializer):
+        user = self.request.user
         cart = get_object_or_404(Cart, user=user)
-        product = get_object_or_404(Product, pk=request.data["product"])
-        current_item = CartItem.objects.filter(cart=cart, product=product)
+        product = get_object_or_404(Product, pk=self.request.data["product"])
 
         if user == product.user:
-            return Response({"error": "You can't add your own product to cart"}, status=status.HTTP_400_BAD_REQUEST)
+            raise PermissionDenied(_("You cannot add your own product to the cart."))
 
-        if current_item.exists():
-            return Response({"error": "Product already in cart"}, status=status.HTTP_400_BAD_REQUEST)
+        if CartItem.objects.filter(cart=cart, product=product).exists():
+            raise NotAcceptable(_("This product is already in your cart."))
 
-        try:
-            quantity = int(request.data["quantity"])
-        except ValueError:
-            return Response({"Please provide one quantity"}, status=status.HTTP_400_BAD_REQUEST)
-
+        quantity = self.request.data.get("quantity", 1)
         if quantity > product.quantity:
-            return Response({"error": "Quantity is greater than available stock"}, status=status.HTTP_400_BAD_REQUEST)
+            raise NotAcceptable(_("Requested quantity exceeds available stock."))
 
-        cart_item = CartItem(cart=cart, product=product, quantity=quantity)
-        cart_item.save()
-        serializer = CartItemSerializer(cart_item)
-        total = float(product.price) * float(quantity)
-        cart.total = total
+        cart_item = serializer.save(cart=cart, product=product, quantity=quantity)
+        cart.total += product.price * quantity
         cart.save()
+        return cart_item
 
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+class CartItemRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
+    serializer_class = CartItemSerializer
+    queryset = CartItem.objects.all()
+    permission_classes = [permissions.IsAuthenticated]
+
+    def perform_update(self, serializer):
+        cart_item = self.get_object()
+        product = get_object_or_404(Product, pk=self.request.data["product"])
+
+        if cart_item.cart.user != self.request.user:
+            raise PermissionDenied(_("This cart does not belong to you."))
+
+        quantity = self.request.data.get("quantity", 1)
+        if quantity > product.quantity:
+            raise NotAcceptable(_("Requested quantity exceeds available stock."))
+
+        serializer.save()
+
+    def perform_destroy(self, instance):
+        if instance.cart.user != self.request.user:
+            raise PermissionDenied(_("This cart does not belong to you."))
+        instance.delete()
