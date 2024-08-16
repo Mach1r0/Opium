@@ -1,28 +1,46 @@
-import React from 'react';
-import style from '../style/contactus.module.css'
-import { FaWhatsapp } from "react-icons/fa";
+'use client';
 
+import React from 'react';
+import style from '../style/contactus.module.css';
+import { FaWhatsapp, FaInstagram } from "react-icons/fa";
 
 export default function Contactus() {
+  const whatsappNumber = "+5511999999999"; // Substitua pelo número de telefone desejado
+  const instagramHandle = "seu_perfil"; // Substitua pelo nome do seu perfil no Instagram
+
+  const handleWhatsappClick = () => {
+    window.open(`https://wa.me/${whatsappNumber}`, '_blank');
+  };
+
+  const handleInstagramClick = () => {
+    window.open(`https://instagram.com/${instagramHandle}`, '_blank');
+  };
+
   return (
-    <main className={style['main']} >
-        <section className={style['main-texts']}>
-            <div>
-                <h2 className={style['title']}>FALE CONOSCO</h2>
-                <p className={style['text']}>Entre em contato por meio de nossas redes sociais. O atendimento está disponível das 8:00 às 18:30 horas de segunda à sábado.</p>
-            </div>
-            <div>
-                <button className={style['btn-whatsapp']}>
-                    <i className={style['contactus-icon']}></i>
-                    <FaWhatsapp />
+    <main className={style['main']}>
+      <section className={style['main-texts']}>
+        <div>
+          <h2 className={style['title']}>FALE CONOSCO</h2>
+          <p className={style['text']}>Entre em contato por meio de nossas redes sociais. O atendimento está disponível das 8:00 às 18:30 horas de segunda à sábado.</p>
+        </div>
 
-                    Atendimento via Whatsapp
-                </button>
-            </div>
-        </section>
+        <button 
+          className={style['btn-aboutus']} 
+          onClick={handleWhatsappClick}
+        >
+          <FaWhatsapp className={style['contactus-icon']} />
+          Atendimento via Whatsapp
+        </button>
 
+        <button 
+          className={style['btn-aboutus']} 
+          onClick={handleInstagramClick}
+        >
+          <FaInstagram className={style['contactus-icon']} />
+          Atendimento via Instagram
+        </button>
+        
+      </section>
     </main>
   );
 }
-
-

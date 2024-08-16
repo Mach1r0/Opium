@@ -1,42 +1,47 @@
 .main {
-    background-color: black;
-  }
+  display: flex;
+  justify-content: center; 
+  align-items: center;    
+  height: 68vh; 
+  background-color: black;          
+}
+
+.main-texts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;     
+  text-align: center; 
+  color: white; 
   
-  .aboutus {
-    display: flex;
-    width: 100%;
-    height: 700px; 
-    object-fit: contain; 
-  }
-  
-  .main-texts {
-    color: white;
-    padding: 3em 9em;
-    text-align: justify;
-  
-    .title {
-      font-weight: bold;
-      padding-bottom: 0.5em;
-      font-size: 2rem;
-    }
-  
-    .text {
-      font-size: 1.5rem;
-    }
+  .title {
+    font-weight: bold;
+    font-size: 2rem;
   }
 
-.btn-whatsapp {
-        display: inline-flex;
-        align-items: center;
-        padding: 10px 20px;
-        font-size: 16px;
-        font-weight: 600;
-        border-radius: 5px;
-        background-color: white;
-        color: black;
-        cursor: pointer;
-      }
-      
-      .icon {
-        margin-right: 8px;
-      }
+  .text {
+    font-size: 1.5rem;
+    margin-top: 1vh;
+  }
+}
+
+.btn-aboutus {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 5px;
+  background-color: white;
+  color: black;
+  cursor: pointer;
+  margin-top: 3vh;       
+}
+
+.btn-aboutus:hover {
+  background-color: rgb(163, 163, 163);
+}
+
+.contactus-icon {
+  margin-right: 8px;      
+  font-size: 20px;     
+}
