@@ -11,6 +11,7 @@ import logging, datetime
 import jwt
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.generics import RetrieveAPIView
+from rest_framework.permissions import AllowAny
 
 logger = logging.getLogger(__name__)
 
@@ -19,6 +20,7 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
 
 class RegisterView(APIView):
+    permission_classes = [AllowAny]
     def post(self, request):
         serializer = RegisterSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -29,6 +31,9 @@ class RegisterView(APIView):
         )
 
 class Login(APIView):
+    authentication_classes = []  
+    permission_classes = [] 
+
     def post(self, request):
         serializer = LoginSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -43,8 +48,8 @@ class Login(APIView):
 
         payload = {
             'id': user.id,
-            'exp': datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(minutes=60),
-            'iat': datetime.datetime.now(datetime.timezone.utc)
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
+            'iat': datetime.datetime.utcnow()
         }
 
         token = jwt.encode(payload, settings.SECRET_KEY, algorithm='HS256')
