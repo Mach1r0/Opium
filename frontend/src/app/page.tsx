@@ -1,7 +1,61 @@
-import React from 'react';
+'use client';
+import React, { useEffect, useState } from 'react';
 import style from './style/home.module.css';
 
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
+async function fetchProducts() {
+  const token = getCookie('jwt');  // Obtém o token JWT do cookie
+  const response = await fetch('http://localhost:8000/products/ctr-product/', {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+  const data = await response.json();
+  return data;
+}
+
+async function fetchBrands() {
+  const token = getCookie('jwt');  // Obtém o token JWT do cookie
+  const response = await fetch('http://localhost:8000/brand/create/', {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+  const data = await response.json();
+  return data;
+}
+
+
 export default function Home() {
+  const [products, setProducts] = useState([]);
+  const [brands, setBrands] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const productsData = await fetchProducts();
+      const brandsData = await fetchBrands();
+
+      if (Array.isArray(productsData)) {
+        setProducts(productsData);
+      } else {
+        console.error('Fetched products data is not an array:', productsData);
+      }
+
+      if (Array.isArray(brandsData)) {
+        setBrands(brandsData);
+      } else {
+        console.error('Fetched brands data is not an array:', brandsData);
+      }
+    }
+    console.log(localStorage.getItem('token'));
+    fetchData();
+  }, []);
+
   return (
     <main className={style['main']}>
       <div className={style['container-all']}>
@@ -17,22 +71,12 @@ export default function Home() {
         <div className={style['container-catalog']}>
           <h1>CATÁLOGO</h1>
           <div className={style['catalog-items']}>
-            <div className={style['item']}>
-              <img src="/path/to/item1.png" alt="Item 1" />
-              <p>R$ 199,00</p>
-            </div>
-            <div className={style['item']}>
-              <img src="/path/to/item2.png" alt="Item 2" />
-              <p>R$ 299,00</p>
-            </div>
-            <div className={style['item']}>
-              <img src="/path/to/item3.png" alt="Item 3" />
-              <p>R$ 399,00</p>
-            </div>
-            <div className={style['item']}>
-              <img src="/path/to/item4.png" alt="Item 4" />
-              <p>R$ 499,00</p>
-            </div>
+            {Array.isArray(products) && products.map((product, index) => (
+              <div key={index} className={style['item']}>
+                <img src={product.image} alt={product.name} />
+                <p>{product.price}</p>
+              </div>
+            ))}
           </div>
           <button className={style['see-more']}>VER MAIS</button>
         </div>
@@ -40,9 +84,12 @@ export default function Home() {
         <div className={style['container-brands']}>
           <h1>NAVEGUE POR MARCAS</h1>
           <div className={style['brands']}>
-            <img src="/path/to/adidas.png" alt="Adidas" />
-            <img src="/path/to/nike.png" alt="Nike" />
-            <img src="/path/to/puma.png" alt="Puma" />
+            {Array.isArray(brands) && brands.map((brand, index) => (
+              <div key={index} className={style['brand-item']}>
+                <img src={brand.logo} alt={brand.name} />
+                <p>{brand.name}</p>
+              </div>
+            ))}
           </div>
         </div>
 

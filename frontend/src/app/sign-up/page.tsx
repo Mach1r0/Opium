@@ -1,12 +1,11 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Style from "../style/signup.module.css";
 import { useRouter } from "next/navigation";
 import { BiLogoGmail } from "react-icons/bi";
 import { FaFacebookF, FaApple } from "react-icons/fa";
 
 export default function Signup() {
-
   const [email, setEmail] = useState("");
   const [nome, setNome] = useState("");
   const [nickname, setNickname] = useState("");
@@ -17,14 +16,14 @@ export default function Signup() {
 
   const handleSignup = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
+  
     if (password !== confirmPassword) {
-      setError("Passwords don't match");
+      setError("As senhas não coincidem");
       return;
     }
-
+  
     const data = { email, nome, nickname, password };
-
+  
     try {
       const response = await fetch("http://localhost:8000/user/register/", {
         method: "POST",
@@ -33,15 +32,18 @@ export default function Signup() {
         },
         body: JSON.stringify(data),
       });
+  
+      const result = await response.json();
+  
       if (response.ok) {
         router.push("/login");
       } else {
-        const result = await response.json();
-        setError(result.message || "Registration failed");
+        console.log(result); 
+        setError(result.message || "Falha no cadastro");
       }
     } catch (error) {
-      console.error("Error on sign-up, try again", error);
-      setError("Error on sign-up, try again");
+      console.error("Erro no cadastro, tente novamente", error);
+      setError("Erro no cadastro, tente novamente");
     }
   };
 
@@ -52,9 +54,9 @@ export default function Signup() {
   return (
     <div className={Style["container-all"]}>
       <div className={Style["container-content"]}>
-        <h1> CADASTRE-SE </h1>
+        <h1>CADASTRE-SE</h1>
         <form className={Style["container-form"]} onSubmit={handleSignup}>
-          <input 
+          <input
             className={Style["signup-input"]}
             type="text"
             placeholder="Nome"
@@ -65,6 +67,13 @@ export default function Signup() {
             className={Style["signup-input"]}
             type="email"
             placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            className={Style["signup-input"]}
+            type="text"
+            placeholder="Nickname"
             value={nickname}
             onChange={(e) => setNickname(e.target.value)}
           />
@@ -72,38 +81,40 @@ export default function Signup() {
             className={Style["signup-input"]}
             type="password"
             placeholder="Senha"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <input
             className={Style["signup-input"]}
             type="password"
             placeholder="Confirmar senha"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
           />
 
-          <button className={Style["btn-signup"]} type="submit">Cadastrar</button>
-          {error && <p className={Style["error"]}>{error}</p>} 
+          <button className={Style["btn-signup"]} type="submit">
+            Cadastrar
+          </button>
+          {error && <p className={Style["error"]}>{error}</p>}
         </form>
       </div>
 
       <div className={Style["container-leftSide"]}>
-        <h1> CADASTRAR USANDO MINHAS REDES SOCIAIS </h1>
+        <h1>CADASTRAR USANDO MINHAS REDES SOCIAIS</h1>
         <div className={Style["signup-container"]}>
-          <button 
+          <button
             className={Style["signup-icon"]}
             onClick={() => handleRedirect("https://accounts.google.com/signin")}
           >
             <BiLogoGmail />
           </button>
-          <button 
+          <button
             className={Style["signup-icon"]}
             onClick={() => handleRedirect("https://www.facebook.com/login")}
           >
             <FaFacebookF />
           </button>
-          <button 
+          <button
             className={Style["signup-icon"]}
             onClick={() => handleRedirect("https://appleid.apple.com/account")}
           >
