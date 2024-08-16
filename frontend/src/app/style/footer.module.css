@@ -1,12 +1,30 @@
 .containerAll {
-  background-color: bisque;
   display: flex;
+  align-items: center;
+  gap: 10vw;
   justify-content: center;
-  gap: 3rem;
+  background-color: black;
 }
 
-.container-contato{
-  background-color: black;
+.container-contato, .container-pagamento {
+  margin: 20px 0;
+}
+
+.footer-title {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+  font-weight: bold;
   color: white;
-  height: 100px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  color: white;
+}
+
+.icon {
+  margin-right: 10px; 
+  font-size: 1.5em; 
 }
