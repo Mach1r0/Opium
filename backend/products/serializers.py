@@ -1,15 +1,20 @@
 from rest_framework import serializers
 from .models import Product, Category
+from user.models import User
+from brand.models import Brand
 
-class CategorySerializer(serializers.HyperlinkedModelSerializer):
+class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ['description', 'name', 'icon']  
+        fields = ['id', 'name', 'description', 'icon']
 
-class ProductsSerializer(serializers.HyperlinkedModelSerializer):
-    category = serializers.SlugRelatedField(slug_field='name', queryset=Category.objects.all())
-    
+class ProductsSerializer(serializers.ModelSerializer):
+    seller = serializers.SlugRelatedField(slug_field="username", queryset=User.objects)
+    brand = serializers.PrimaryKeyRelatedField(queryset=Brand.objects.all())
+
+    def get_category(self, obj):
+        return obj.category.name
+
     class Meta:
         model = Product
-        exclude = ['modified']
-
+        fields = ['id', 'status', 'seller', 'type', 'name', 'quantity', 'size', 'image', 'brand', 'price', 'description', 'category']

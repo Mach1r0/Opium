@@ -8,12 +8,10 @@ from .models import Cart, CartItem
 from products.models import Product
 from .serializers import CartItemSerializer, CartItemUpdateSerializer, CartSerializer
 
-
 class CartViewSet(viewsets.ModelViewSet):
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
     permission_classes = [permissions.IsAuthenticated]
-
 
 class CartItemListCreateAPIView(ListCreateAPIView):
     serializer_class = CartItemSerializer
@@ -27,7 +25,7 @@ class CartItemListCreateAPIView(ListCreateAPIView):
         cart = get_object_or_404(Cart, user=user)
         product = get_object_or_404(Product, pk=self.request.data["product"])
 
-        if user == product.user:
+        if user == product.seller:
             raise PermissionDenied(_("You cannot add your own product to the cart."))
 
         if CartItem.objects.filter(cart=cart, product=product).exists():
@@ -42,9 +40,8 @@ class CartItemListCreateAPIView(ListCreateAPIView):
         cart.save()
         return cart_item
 
-
 class CartItemRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
-    serializer_class = CartItemSerializer
+    serializer_class = CartItemUpdateSerializer
     queryset = CartItem.objects.all()
     permission_classes = [permissions.IsAuthenticated]
 
