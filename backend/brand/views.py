@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from rest_framework.response import Response
+from rest_framework import permissions
 from rest_framework import status, viewsets
 from brand.models import Brand
 from brand.serializers import BrandSerializer
@@ -7,6 +8,7 @@ from brand.serializers import BrandSerializer
 class BrandViewSet(viewsets.ModelViewSet):
     queryset = Brand.objects.all()
     serializer_class = BrandSerializer
+    permission_classes = [permissions.AllowAny]  
 
     def create(self, request, *args, **kwargs):
         serializer = BrandSerializer(data=request.data)
