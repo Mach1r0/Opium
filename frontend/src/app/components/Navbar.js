@@ -12,6 +12,7 @@ export default function Navbar() {
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
+    document.getElementById("my-drawer-4").checked = !isOpen;
   };
 
   return (
@@ -44,11 +45,18 @@ export default function Navbar() {
           <Link href="/login">
             <button className={styles["menu-btn"]}>Entrar</button>
           </Link>
-          <IoIosMenu className={styles["dropdown"]} onClick={toggleSidebar} />
+          <div className="drawer-content">
+            <label htmlFor="my-drawer-4" className="drawer-button btn btn-primary" onClick={toggleSidebar}>  
+               <IoIosMenu className={styles["dropdown"]} onClick={toggleSidebar} />
+            </label>
+          </div>
         </div>
-
       </div>
-        {isOpen && <Sidebar toggleSidebar={toggleSidebar} />}
+
+      {/* Sidebar component, controlled by the state */}
+      <div className={`${isOpen ? styles["drawer-open"] : ""}`}>
+        <Sidebar toggleSidebar={toggleSidebar} />
+      </div>
     </>
   );
 }

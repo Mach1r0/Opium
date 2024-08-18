@@ -74,3 +74,7 @@
   height: 36px;
   width: 39px;    
 }
+
+.drawer-button.btn.btn-primary {
+  background-color: black;
+}

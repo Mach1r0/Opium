@@ -1,6 +1,7 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import style from './style/home.module.css';
+import { get } from 'http';
 
 function getCookie(name) {
   const value = `; ${document.cookie}`;
@@ -19,17 +20,19 @@ async function fetchProducts() {
   return data;
 }
 
+
+
 async function fetchBrands() {
-  const token = getCookie('jwt');  // Obtém o token JWT do cookie
+  const token = getCookie('jwt'); 
+  console.log(getCookie('jwt'));
   const response = await fetch('http://localhost:8000/brand/create/', {
     headers: {
       'Authorization': `Bearer ${token}`,
     },
   });
   const data = await response.json();
-  return data;
+  return data.results; 
 }
-
 
 export default function Home() {
   const [products, setProducts] = useState([]);
@@ -39,20 +42,19 @@ export default function Home() {
     async function fetchData() {
       const productsData = await fetchProducts();
       const brandsData = await fetchBrands();
-
-      if (Array.isArray(productsData)) {
-        setProducts(productsData);
+  
+      if (productsData && Array.isArray(productsData.results)) {
+        setProducts(productsData.results);
       } else {
         console.error('Fetched products data is not an array:', productsData);
       }
-
+  
       if (Array.isArray(brandsData)) {
         setBrands(brandsData);
       } else {
         console.error('Fetched brands data is not an array:', brandsData);
       }
     }
-    console.log(localStorage.getItem('token'));
     fetchData();
   }, []);
 
@@ -86,8 +88,8 @@ export default function Home() {
           <div className={style['brands']}>
             {Array.isArray(brands) && brands.map((brand, index) => (
               <div key={index} className={style['brand-item']}>
-                <img src={brand.logo} alt={brand.name} />
-                <p>{brand.name}</p>
+                <img src={brand.image} alt={brand.nome} />
+                <p>{brand.nome}</p>
               </div>
             ))}
           </div>

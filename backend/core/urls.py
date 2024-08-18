@@ -6,6 +6,8 @@ from brand.views import BrandViewSet
 from user.views import UserViewSet
 from orders.views import OrderViewSet
 from products.views import ProductsViewSet
+from django.conf import settings
+from django.conf.urls.static import static
 
 router = routers.DefaultRouter()
 router.register(r'brand', BrandViewSet, basename='brand')
@@ -22,4 +24,4 @@ urlpatterns = [
     path('cart/', include('cart.urls')),
     path("brand/", include('brand.urls')),
     path('', include(router.urls)),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
