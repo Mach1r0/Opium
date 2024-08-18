@@ -12,7 +12,6 @@ export default function Navbar() {
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
-    document.getElementById("my-drawer-4").checked = !isOpen;
   };
 
   return (
@@ -27,7 +26,7 @@ export default function Navbar() {
         <div className={styles["container-logo"]}>
           <img src="/img/Opium-logo.png" alt="Logo" />
           <Link href="/">
-            <h1> Opium </h1>
+            <h1> OPIUM </h1>
           </Link>
         </div>
 
@@ -56,9 +55,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      <div className={`${isOpen ? styles["drawer-open"] : ""}`}>
-        <Sidebar toggleSidebar={toggleSidebar} />
-      </div>
+      <Sidebar isOpen={isOpen} toggleSidebar={toggleSidebar} />
     </>
   );
 }

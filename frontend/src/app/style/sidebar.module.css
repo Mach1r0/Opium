@@ -1,8 +1,76 @@
-.drawerButton {
-    background-color: black;
-  }
-  
-  .drawerContent {
-    background-color: black;
-  }
-  
+@import url('https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Kodchasan:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+.menu{
+  background-color: white !important;
+}
+
+.menu li {
+  position: relative;
+  margin-bottom: 10px;
+  list-style-type: none;
+  padding: 10px 0;
+  text-align: center;
+  font-size: 20px; /* Increase font size */
+}
+
+.menu li.bar-below:hover a {
+  color: #333; 
+}
+
+.menu li a {
+  display: block;
+  font-size: 20px; /* Increase font size */
+  color: #000;
+  text-decoration: none;
+}
+
+.menu li.bar-below::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 2px;
+  width: 90%;
+  background-color: grey;
+}
+
+.menu li.bar-below:hover::after {
+  background-color: #333; 
+}
+
+.menu li.bar-below:hover a {
+  color: #333; 
+}
+
+.container-title {
+  font-size: 24px; /* Increase title font size */
+  margin-bottom: 30px;
+  color: black;
+  text-align: center;
+  font-family: 'Kodchasan';
+  font-weight: bold;
+}
+
+.bar-below {
+  position: relative;
+}
+
+.bar-below::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 10px; /* Adjust the width of the bar */
+}
+
+.menu li a {
+  display: flex;
+  align-items: center;
+}
+
+.menu li a svg {
+  margin-right: 8px; /* Adjust the spacing between the icon and the text */
+  font-size: 24px; /* Increase icon size */
+}
