@@ -75,6 +75,12 @@
   width: 39px;    
 }
 
-.drawer-button.btn.btn-primary {
-  background-color: black;
+.drawer-button {
+  background-color: black !important;
+  border: none;
+}
+
+
+.drawer-content {
+  background-color: black !important;
 }
