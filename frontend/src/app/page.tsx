@@ -1,36 +1,37 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import style from './style/home.module.css';
-import { get } from 'http';
+import Sport from '../app/components/sport';
+import Brands from '../app/components/Marcas';
 
-function getCookie(name) {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop().split(';').shift();
+function getCookie() {
+  return localStorage.getItem('token');
 }
 
 async function fetchProducts() {
-  const token = getCookie('jwt');  // Obtém o token JWT do cookie
+  const token = getCookie('jwt');  
+  console.log(getCookie('jwt'));
   const response = await fetch('http://localhost:8000/products/ctr-product/', {
     headers: {
       'Authorization': `Bearer ${token}`,
     },
   });
   const data = await response.json();
+  console.log("product:", data);
   return data;
 }
 
-
-
 async function fetchBrands() {
-  const token = getCookie('jwt'); 
-  console.log(getCookie('jwt'));
+  const token = getCookie('jwt');
+  console.log(getCookie());
   const response = await fetch('http://localhost:8000/brand/create/', {
     headers: {
-      'Authorization': `Bearer ${token}`,
+      'Authorization': `Bearer ${localStorage.getItem('token')}`,
     },
   });
   const data = await response.json();
+  console.log("brand:", data);
+  console.log(localStorage.getItem('token'));
   return data.results; 
 }
 
@@ -76,6 +77,7 @@ export default function Home() {
             {Array.isArray(products) && products.map((product, index) => (
               <div key={index} className={style['item']}>
                 <img src={product.image} alt={product.name} />
+                <p>{product.name}</p>
                 <p>{product.price}</p>
               </div>
             ))}
@@ -83,37 +85,11 @@ export default function Home() {
           <button className={style['see-more']}>VER MAIS</button>
         </div>
 
-        <div className={style['container-brands']}>
-          <h1>NAVEGUE POR MARCAS</h1>
-          <div className={style['brands']}>
-            {Array.isArray(brands) && brands.map((brand, index) => (
-              <div key={index} className={style['brand-item']}>
-                <img src={brand.image} alt={brand.nome} />
-                <p>{brand.nome}</p>
-              </div>
-            ))}
-          </div>
-        </div>
+        <Brands brands={brands} />
 
         <div className={style['container-sport']}>
-          <h1>NAVEGUE PELO SEU ESPORTE PREFERIDO</h1>
           <div className={style['sports']}>
-            <div className={style['sport-item']}>
-              <img src="/path/to/soccer.png" alt="Soccer" />
-              <p>FUTEBOL</p>
-            </div>
-            <div className={style['sport-item']}>
-              <img src="/path/to/tennis.png" alt="Tennis" />
-              <p>TÊNIS</p>
-            </div>
-            <div className={style['sport-item']}>
-              <img src="/path/to/basketball.png" alt="Basketball" />
-              <p>BASQUETE</p>
-            </div>
-            <div className={style['sport-item']}>
-              <img src="/path/to/volleyball.png" alt="Volleyball" />
-              <p>VÔLEI</p>
-            </div>
+            <Sport />
           </div>
           <button className={style['see-more']}>VER MAIS</button>
         </div>

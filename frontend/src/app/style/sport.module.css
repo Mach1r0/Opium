@@ -1,0 +1,71 @@
+.sport-container {
+    text-align: center;
+    padding: 20px;
+    background-color: #000; /* Black background */
+  }
+  
+  .sport-title {
+    font-size: 28px;
+    color: #fff; /* White text */
+    margin-bottom: 20px;
+  }
+  
+  .sport-items {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Two columns */
+    gap: 20px; /* Space between items */
+    justify-content: center;
+  }
+  
+  .sport-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+  }
+  
+  .sport-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+  }
+  
+  .sport-item:hover img {
+    transform: scale(1.05); /* Slight zoom on hover */
+  }
+  
+  .sport-item p {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    color: #fff;
+    font-size: 18px;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin: 0;
+  }
+  
+  .sport-item .price {
+    top: 20px;
+    left: 20px;
+    bottom: auto;
+  }
+  
+  button.see-more {
+    background-color: transparent;
+    border: 1px solid #fff;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    margin-top: 20px;
+  }
+  
+  button.see-more:hover {
+    background-color: #fff;
+    color: #000;
+  }
+  

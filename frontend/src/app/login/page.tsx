@@ -52,21 +52,21 @@ export default function Login() {
             <button className={Style["social-button"]}><FaApple /> </button>
           </div>
           <p>ou</p>
-          <form onSubmit={handleLogin}>
-            <input
-              type="text"
-              placeholder="Email"
-              value={nickname}
-              onChange={(e) => setNickname(e.target.value)}
-            />
-            <input
-              type="password"
-              placeholder="Senha"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <button type="submit" className={Style["login-button"]}>Entrar</button>
-          </form>
+            <form onSubmit={handleLogin} className={Style['container-input']}>
+              <input 
+                type="text"
+                placeholder="Email"
+                value={nickname}
+                onChange={(e) => setNickname(e.target.value)}
+              />
+              <input
+                type="password"
+                placeholder="Senha"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <button type="submit" className={Style["login-button"]}>Entrar</button>
+            </form>
           {error && <p className={Style["error"]}>{error}</p>}
         </div>
 

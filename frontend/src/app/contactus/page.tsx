@@ -6,7 +6,7 @@ import { FaWhatsapp, FaInstagram } from "react-icons/fa";
 
 export default function Contactus() {
   const whatsappNumber = "+5511999999999"; 
-  const instagramHandle = "seu_perfil"; 
+  const instagramHandle = "daniel_santos"; 
 
   const handleWhatsappClick = () => {
     window.open(`https://wa.me/${whatsappNumber}`, '_blank');

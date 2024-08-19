@@ -13,7 +13,6 @@
     background-color: white;
     color: black;
     width: 60%;
-    padding: 2rem;
     gap: 1rem;
 }
 
@@ -85,7 +84,7 @@
 }
 
 .container-leftSide h1{
-    
+    font-size: 35px;
 }
 .signup-button {
     padding: 0.8rem 2rem;
@@ -95,4 +94,17 @@
     background-color: white;
     color: black;
     cursor: pointer;
+}
+
+.container-input{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 600px;
+}
+
+.container-input input{
+    background-color: white;
 }
