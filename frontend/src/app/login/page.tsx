@@ -2,6 +2,9 @@
 import React, { useState } from "react";
 import Style from "../style/login.module.css";
 import { useRouter } from "next/navigation";
+import { SiGmail } from "react-icons/si";
+import { ImFacebook2 } from "react-icons/im";
+import { FaApple } from "react-icons/fa";
 
 export default function Login() {
   const [nickname, setNickname] = useState("");
@@ -41,11 +44,18 @@ export default function Login() {
     <>
       <div className={Style["container-all"]}>
         <div className={Style["container-form"]}>
-          <h1>Entre com sua conta</h1>
+          <h1>ENTRE COM SUA CONTA</h1>
+          <p>Entrar usando minhas redes sociais</p>
+          <div className={Style["social-icons"]}>
+            <button className={Style["social-button"]}><SiGmail />            </button>
+            <button className={Style["social-button"]}><ImFacebook2 /></button>
+            <button className={Style["social-button"]}><FaApple /> </button>
+          </div>
+          <p>ou</p>
           <form onSubmit={handleLogin}>
             <input
-              type="nickname"
-              placeholder="Nickname"
+              type="text"
+              placeholder="Email"
               value={nickname}
               onChange={(e) => setNickname(e.target.value)}
             />
@@ -55,14 +65,14 @@ export default function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <button type="submit">Entrar</button>
+            <button type="submit" className={Style["login-button"]}>Entrar</button>
           </form>
           {error && <p className={Style["error"]}>{error}</p>}
         </div>
 
         <div className={Style["container-leftSide"]}>
           <h1>Ainda não tem conta?</h1>
-          <button onClick={() => router.push("/sign-up")}>Cadastrar</button>
+          <button onClick={() => router.push("/sign-up")} className={Style["signup-button"]}>Cadastrar</button>
         </div>
       </div>
     </>
