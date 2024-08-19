@@ -9,7 +9,7 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'description', 'icon']
 
 class ProductsSerializer(serializers.ModelSerializer):
-    seller = serializers.SlugRelatedField(slug_field="username", queryset=User.objects)
+    seller = serializers.SlugRelatedField(slug_field="email", queryset=User.objects.all())
     brand = serializers.PrimaryKeyRelatedField(queryset=Brand.objects.all())
 
     def get_category(self, obj):
@@ -17,4 +17,4 @@ class ProductsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ['id', 'status', 'seller', 'type', 'name', 'quantity', 'size', 'image', 'brand', 'price', 'description', 'category']
+        fields = ['status', 'seller', 'name', 'quantity', 'size', 'image', 'brand', 'price', 'description', 'category', 'sport']
