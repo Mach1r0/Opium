@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import style from './style/catalogo.module.css';
+import style from '../style/catalogo.module.css';
 
 function getCookie(name) {
   const value = `; ${document.cookie}`;

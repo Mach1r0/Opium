@@ -3,37 +3,8 @@ import React, { useEffect, useState } from 'react';
 import style from './style/home.module.css';
 import Sport from '../app/components/sport';
 import Brands from '../app/components/Marcas';
-
-function getCookie() {
-  return localStorage.getItem('token');
-}
-
-async function fetchProducts() {
-  const token = getCookie('jwt');  
-  console.log(getCookie('jwt'));
-  const response = await fetch('http://localhost:8000/products/ctr-product/', {
-    headers: {
-      'Authorization': `Bearer ${token}`,
-    },
-  });
-  const data = await response.json();
-  console.log("product:", data);
-  return data;
-}
-
-async function fetchBrands() {
-  const token = getCookie('jwt');
-  console.log(getCookie());
-  const response = await fetch('http://localhost:8000/brand/create/', {
-    headers: {
-      'Authorization': `Bearer ${localStorage.getItem('token')}`,
-    },
-  });
-  const data = await response.json();
-  console.log("brand:", data);
-  console.log(localStorage.getItem('token'));
-  return data.results; 
-}
+import Catalogo from '../app/components/catalogo';
+import { fetchProducts, fetchBrands } from './utils/Fetch'; // Adjust the path if necessary
 
 export default function Home() {
   const [products, setProducts] = useState([]);
@@ -72,26 +43,16 @@ export default function Home() {
         </div>
 
         <div className={style['container-catalog']}>
-          <h1>CATÁLOGO</h1>
-          <div className={style['catalog-items']}>
-            {Array.isArray(products) && products.map((product, index) => (
-              <div key={index} className={style['item']}>
-                <img src={product.image} alt={product.name} />
-                <p>{product.name}</p>
-                <p>{product.price}</p>
-              </div>
-            ))}
-          </div>
-          <button className={style['see-more']}>VER MAIS</button>
+          <Catalogo />
         </div>
 
-        <Brands brands={brands} />
-
+        <div className= {style['container-brands']}>
+          <Brands brands={brands} />
+        </div>
         <div className={style['container-sport']}>
           <div className={style['sports']}>
             <Sport />
           </div>
-          <button className={style['see-more']}>VER MAIS</button>
         </div>
 
       </div>
