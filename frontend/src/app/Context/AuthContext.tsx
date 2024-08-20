@@ -2,7 +2,12 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 
-const AuthContext = createContext(null);
+const AuthContext = createContext({
+    user: null,
+    token: null,
+    login: () => {},
+    logout: () => {},
+});
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
@@ -13,7 +18,10 @@ export const AuthProvider = ({ children }) => {
         const retrieveUser = () => {
             const storedUser = localStorage.getItem('yourApp@user');
             const storedToken = localStorage.getItem('yourApp@token');
-
+            
+            console.log("Stored User:", storedUser);
+            console.log("Stored Token:", storedToken);
+    
             if (storedUser && storedToken) {
                 setUser(JSON.parse(storedUser));
                 setToken(storedToken);
@@ -23,19 +31,9 @@ export const AuthProvider = ({ children }) => {
         retrieveUser();
     }, []);
 
-    const validateToken = async (token, role) => {
+    const login = async (userData) => {
         try {
-            const response = await axios.post(`${API_BASE_URL}/${role}/validate-token/${token}`);
-            return response.status === 200;
-        } catch (error) {
-            console.error('Token validation failed:', error);
-            return false;
-        }
-    };
-
-    const login = async (userData, role) => {
-        try {
-            const response = await axios.post(`${API_BASE_URL}/${role}/login`, userData);
+            const response = await axios.post("http://localhost:8000/user/login/", userData);
             setUser(response.data);
             setToken(response.data.token);
             localStorage.setItem('yourApp@user', JSON.stringify(response.data));
@@ -53,8 +51,8 @@ export const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ user, token, login, logout, validateToken }}>
-            {isReady ? children : <Loading />} {/* Replace <Loading /> with your loading component */}
+        <AuthContext.Provider value={{ user, token, login, logout }}>
+            {isReady ? children : null}
         </AuthContext.Provider>
     );
 };
