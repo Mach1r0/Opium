@@ -6,9 +6,12 @@ import styles from "../style/navbar.module.css";
 import Sidebar from "./Sidebar";
 import { IoIosMenu } from "react-icons/io";
 import { CiSearch } from "react-icons/ci";
+import { useAuth } from "../Context/AuthContext";
+import {token} from '../Context/AuthContext';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const { token } = useAuth(); 
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -41,7 +44,17 @@ export default function Navbar() {
 
         <div className={styles["menu"]}>
           <Link href="/login">
-            <button className={styles["menu-btn"]}>Entrar</button>
+            {token ? (
+              <button>
+                <Link href="/perfil" legacyBehavior>
+                  <button  className={styles['container-perfil']}>
+                    Perfil
+                  </button>
+                </Link>
+              </button>
+            ) : (
+              <button className={styles["menu-btn"]}>Entrar</button>
+            )}
           </Link>
           <div className="drawer-content">
             <label

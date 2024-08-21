@@ -7,9 +7,12 @@ import { MdCurrencyExchange } from "react-icons/md";
 import { LuNewspaper } from "react-icons/lu";
 import { LuTrash } from "react-icons/lu";
 import { CiSearch } from "react-icons/ci";
+import { useAuth } from '../Context/AuthContext';
 import { CgProfile } from "react-icons/cg";
 
 const Sidebar = ({ toggleSidebar }) => {
+  const { token } = useAuth(); 
+
   return (
     <div className={`drawer drawer-end ${styles["drawer-button"]}`}>
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
@@ -32,10 +35,16 @@ const Sidebar = ({ toggleSidebar }) => {
           </div>
           <li className={styles["bar-below"]}>
             <Link href="/" legacyBehavior>
-              <a>
+              { token ? (
+                <a>
                 <CgProfile />
                 Perfil
-              </a>
+              </a>) : (
+                <a>
+                <CgProfile />
+                Entrar
+                </a>
+              )}
             </Link>
           </li>
           <li className={styles["bar-below"]}>

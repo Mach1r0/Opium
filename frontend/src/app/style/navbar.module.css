@@ -77,6 +77,11 @@
   width: 39px;    
 }
 
+.dropdown:hover  {
+  color: #6e6e6e;
+  transition: 0.07s;
+}
+
 .drawer-button {
   background-color: black !important;
   border: none;
@@ -85,4 +90,20 @@
 
 .drawer-content {
   background-color: black !important;
+}
+
+.container-perfil{
+  border: 1 solid white;
+  background-color: white;
+  border-radius: 8px;
+  height: 35px;
+  width: 60px;
+  font-size: 15px;
+  color: black;
+}
+
+.container-perfil:hover {
+  background-color: #6e6e6e;
+  transition: 0.07s;
+  color: white;
 }
