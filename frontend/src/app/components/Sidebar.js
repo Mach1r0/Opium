@@ -24,7 +24,11 @@ const Sidebar = ({ toggleSidebar }) => {
           className={`menu bg-base-200 text-base-content min-h-full w-80 p-4 ${styles["menu"]}`}
         >
           <div className={styles["container-title"]}>
-            <h1>OPIUM</h1>
+            <Link  href='/'>
+              <h1>
+                  OPIUM
+              </h1>
+            </Link>
           </div>
           <li className={styles["bar-below"]}>
             <Link href="/" legacyBehavior>

@@ -1,5 +1,6 @@
 import React from "react";
 import Style from "../style/trocas.module.css";
+import Link from "next/link";
 
 export default function Trocas() {
   return (
@@ -14,7 +15,11 @@ export default function Trocas() {
         </div>
 
         <div className={Style['container-btn']}>
-          <button>Atendimento</button>
+          <Link href='/contactus'>
+            <button>
+              Atendimento
+            </button>
+          </Link>
         </div>
 
         <div className={Style["container-trocas"]}>

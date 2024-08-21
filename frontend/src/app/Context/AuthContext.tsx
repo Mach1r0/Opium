@@ -1,13 +1,9 @@
 'use client'; 
 import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
+import Cookies from 'js-cookie';
 
-const AuthContext = createContext({
-    user: null,
-    token: null,
-    login: () => {},
-    logout: () => {},
-});
+const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
@@ -15,44 +11,27 @@ export const AuthProvider = ({ children }) => {
     const [isReady, setIsReady] = useState(false);
 
     useEffect(() => {
-        const retrieveUser = () => {
-            const storedUser = localStorage.getItem('yourApp@user');
-            const storedToken = localStorage.getItem('yourApp@token');
-            
-            console.log("Stored User:", storedUser);
-            console.log("Stored Token:", storedToken);
+        const storedToken = localStorage.getItem('token');
+        const cookieToken = Cookies.get('');
     
-            if (storedUser && storedToken) {
-                setUser(JSON.parse(storedUser));
-                setToken(storedToken);
-            }
-            setIsReady(true);
-        };
-        retrieveUser();
+        console.log(localStorage.getItem('token'));
+        console.log('Stored Token from LocalStorage:', storedToken);
+        console.log('Stored Token from Cookies:', cookieToken);
+        console.log(Cookies.get('jwt'));
+        
+        if (storedToken) {
+            setToken(storedToken);
+        } else if (cookieToken) {
+            setToken(cookieToken);
+            localStorage.setItem('yourApp@token', cookieToken);
+        }
+        
+        setIsReady(true);  
     }, []);
 
-    const login = async (userData) => {
-        try {
-            const response = await axios.post("http://localhost:8000/user/login/", userData);
-            setUser(response.data);
-            setToken(response.data.token);
-            localStorage.setItem('yourApp@user', JSON.stringify(response.data));
-            localStorage.setItem('yourApp@token', response.data.token);
-        } catch (error) {
-            console.error('Login failed:', error);
-        }
-    };
-
-    const logout = () => {
-        setUser(null);
-        setToken(null);
-        localStorage.removeItem('yourApp@user');
-        localStorage.removeItem('yourApp@token');
-    };
-
     return (
-        <AuthContext.Provider value={{ user, token, login, logout }}>
-            {isReady ? children : null}
+        <AuthContext.Provider value={{ user, token }}>
+            {isReady ? children : 'Loading...'} 
         </AuthContext.Provider>
     );
 };

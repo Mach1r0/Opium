@@ -14,34 +14,34 @@ export default function Home() {
 
   useEffect(() => {
     if (!token) {
-      console.error('No token found!');
-      return;
+        console.error('No token found!');
+        return;
     }
 
     async function fetchData() {
-      try {
-        const productsData = await fetchProducts();
-        const brandsData = await fetchBrands();
+        try {
+            const productsData = await fetchProducts();
+            const brandsData = await fetchBrands();
 
-        if (productsData && Array.isArray(productsData.results)) {
-          setProducts(productsData.results);
-        } else {
-          console.error('Fetched products data is not an array:', productsData);
+            if (productsData && Array.isArray(productsData.results)) {
+                setProducts(productsData.results);
+            } else {
+                console.error('Fetched products data is not an array:', productsData);
+            }
+
+            if (Array.isArray(brandsData)) {
+                setBrands(brandsData);
+            } else {
+                console.error('Fetched brands data is not an array:', brandsData);
+            }
+        } catch (error) {
+            console.error('Error fetching data:', error);
         }
-    
-        if (Array.isArray(brandsData)) {
-          setBrands(brandsData);
-        } else {
-          console.error('Fetched brands data is not an array:', brandsData);
-        }
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
     }
 
     console.log('Token:', token);
     fetchData();
-  }, [token]); // Depend on token to ensure it is available
+}, [token]); // Depend on token to ensure it is available
 
   return (
     <main className={style['main']}>
@@ -53,7 +53,26 @@ export default function Home() {
         )}
       </div>
       <div className={style['container-all']}>
-        {/* Other components and markup */}
+      <div className={style['container-header']}>
+          <div className={style['sale']}>
+            <h1>SALE</h1>
+            <p>Não perca! Produtos exclusivos!</p>
+          </div>
+          <img src="/path/to/your/header-image.png" alt="Header" className={style['header-img']} />
+        </div>
+
+        <div className={style['container-catalog']}>
+          <Catalogo />
+        </div>
+
+        <div className= {style['container-brands']}>
+          <Brands brands={brands} />
+        </div>
+        <div className={style['container-sport']}>
+          <div className={style['sports']}>
+            <Sport />
+          </div>
+        </div>
       </div>
     </main>
   );
