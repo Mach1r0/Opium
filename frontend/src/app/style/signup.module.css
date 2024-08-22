@@ -34,6 +34,8 @@
 
 .signup-input {
     border: 1.5px solid #8B8B8B;
+    background-color: white;
+    color: black;
     border-radius: 20px;
     width: 23vw;
     padding: 5px 15px;

@@ -5,8 +5,8 @@ import style from '../style/contactus.module.css';
 import { FaWhatsapp, FaInstagram } from "react-icons/fa";
 
 export default function Contactus() {
-  const whatsappNumber = "+5511999999999"; // Substitua pelo número de telefone desejado
-  const instagramHandle = "seu_perfil"; // Substitua pelo nome do seu perfil no Instagram
+  const whatsappNumber = "+5511999999999"; 
+  const instagramHandle = "daniel_santos"; 
 
   const handleWhatsappClick = () => {
     window.open(`https://wa.me/${whatsappNumber}`, '_blank');
