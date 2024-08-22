@@ -1,11 +1,11 @@
-.container-all{
+.container-all {
     display: flex;
     background-color: black;
     color: white;
     height: 100vh;
 }
 
-.container-content{
+.container-content {
     display: flex;
     flex-direction: column;
     background-color: white;
@@ -50,7 +50,7 @@
     font-weight: 600;
 }
 
-.container-leftSide h1 {
+.container-leftside h1 {
     font-size: 2rem;
     padding: 1vh;
     text-align: center;
@@ -70,4 +70,65 @@
     margin: 5vh;
     cursor: pointer;
     font-size: 45px;
+    border-radius: 10px;
 }
+
+/* Estilo para página de Sign in */
+.container-contant-signin h1 {
+    padding: 0 25rem;
+}
+
+.container-content p {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 500;
+    padding: 1rem;
+}
+
+.signin-icon {
+    background-color: black;
+    color: white;
+    padding: 20px;
+    margin: 2rem;
+}
+
+.container-form-signin {
+    margin-top: 2rem;
+}
+
+.btn-signin {
+    margin-top: 3vh;
+}
+
+.container-leftside-signin {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%; 
+    width: 40%; 
+    text-align: center;
+    box-sizing: border-box; 
+}
+
+.container-leftside-signin h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.btn-signin-left {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    color: black;
+    border-radius: 10px;
+    width: 8em; 
+    height: 2em; 
+    font-weight: bold;
+    margin-top: 1.5rem; 
+}
+
+
