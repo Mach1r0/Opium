@@ -5,7 +5,7 @@ import style from "./style/home.module.css";
 import Sport from "../app/components/sport";
 import Brands from "../app/components/Marcas";
 import Catalogo from "../app/components/catalogo";
-import { fetchProducts, fetchBrands } from "./utils/Fetch";
+import { fetchProducts, fetchBrands } from "@/app/utils/Fetch";
 
 export default function Home() {
   const { token } = useAuth();
