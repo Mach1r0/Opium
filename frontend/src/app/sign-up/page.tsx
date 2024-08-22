@@ -38,7 +38,6 @@ export default function Signup() {
       if (response.ok) {
         router.push("/login");
       } else {
-        console.log(result); 
         setError(result.message || "Falha no cadastro");
       }
     } catch (error) {

@@ -9,10 +9,11 @@ import { LuTrash } from "react-icons/lu";
 import { CiSearch } from "react-icons/ci";
 import { useAuth } from '../Context/AuthContext';
 import { CgProfile } from "react-icons/cg";
+import { logout } from '../components/Logout' 
 
 const Sidebar = ({ toggleSidebar }) => {
-  const { token } = useAuth(); 
-
+  const { token, logout } = useAuth();
+  
   return (
     <div className={`drawer drawer-end ${styles["drawer-button"]}`}>
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
@@ -27,22 +28,20 @@ const Sidebar = ({ toggleSidebar }) => {
           className={`menu bg-base-200 text-base-content min-h-full w-80 p-4 ${styles["menu"]}`}
         >
           <div className={styles["container-title"]}>
-            <Link  href='/'>
-              <h1>
-                  OPIUM
-              </h1>
+            <Link href='/'>
+              <h1>OPIUM</h1>
             </Link>
           </div>
           <li className={styles["bar-below"]}>
             <Link href="/" legacyBehavior>
               { token ? (
                 <a>
-                <CgProfile />
-                Perfil
-              </a>) : (
+                  <CgProfile />
+                  Perfil
+                </a>) : (
                 <a>
-                <CgProfile />
-                Entrar
+                  <CgProfile />
+                  Entrar
                 </a>
               )}
             </Link>
@@ -81,11 +80,16 @@ const Sidebar = ({ toggleSidebar }) => {
               </a>
             </Link>
           </li>
+          {token ? ( 
+
+
           <li>
-            <a>
+            <a onClick={logout}>
               <LuTrash /> Sair
             </a>
           </li>
+            ) : () => {return null}
+          }
         </ul>
       </div>
     </div>
