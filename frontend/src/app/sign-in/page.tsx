@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Style from "../style/signin.module.css";
+import Style from "../style/signup.module.css";
 import { useRouter } from "next/navigation";
 import { BiLogoGmail } from "react-icons/bi";
 import { FaFacebookF, FaApple } from "react-icons/fa";
@@ -51,26 +51,25 @@ export default function Signin() {
 
   return (
     <div className={Style["container-all"]}>
-
-      <div className={Style["container-content"]}>
+      <div className={`${Style["container-content"]} ${Style["container-contant-signin"]}`}>
         <h1> ENTRE COM SUA CONTA </h1>
         <p> Entrar usando minhas redes sociais </p>
 
         <div className={Style["signup-container"]}>
           <button 
-            className={Style["signup-icon"]}
+            className={`${Style["signup-icon"]} ${Style["signin-icon"]}`}
             onClick={() => handleRedirect("https://accounts.google.com/signin")}
           >
             <BiLogoGmail />
           </button>
           <button 
-            className={Style["signup-icon"]}
+            className={`${Style["signup-icon"]} ${Style["signin-icon"]}`}
             onClick={() => handleRedirect("https://www.facebook.com/login")}
           >
             <FaFacebookF />
           </button>
           <button 
-            className={Style["signup-icon"]}
+            className={`${Style["signup-icon"]} ${Style["signin-icon"]}`}
             onClick={() => handleRedirect("https://appleid.apple.com/account")}
           >
             <FaApple />
@@ -81,30 +80,33 @@ export default function Signin() {
           <div className="divider">OU</div>
         </div>
 
-        <form className={Style["container-form"]} onSubmit={handleSignup}>
-          <input 
-            className={Style["signup-input"]}
-            type="email"
-            placeholder="Email"
-            value={nome}
-            onChange={(e) => setNome(e.target.value)}
-          />
-          <input
-            className={Style["signup-input"]}
-            type="password"
-            placeholder="Senha"
-            value={nickname}
-            onChange={(e) => setNickname(e.target.value)}
-          />
-          <button className={Style["btn-signup"]} type="submit">Entrar</button>
-          {error && <p className={Style["error"]}>{error}</p>} 
-        </form>
-
-        <div className={Style["container-leftSide"]}>
-          <h1> CADASTRAR USANDO MINHAS REDES SOCIAIS </h1>
+        <div>
+          <form className={`${Style["container-form"]} ${Style["container-form-signin"]}`} onSubmit={handleSignup}>
+            <input 
+              className={Style["signup-input"]}
+              type="email"
+              placeholder="Email"
+              value={nome}
+              onChange={(e) => setNome(e.target.value)}
+            />
+            <input
+              className={Style["signup-input"]}
+              type="password"
+              placeholder="Senha"
+              value={nickname}
+              onChange={(e) => setNickname(e.target.value)}
+            />
+            <button className={`${Style["btn-signup"]} ${Style["btn-signin"]}`} type="submit">Entrar</button>
+            {error && <p className={Style["error"]}>{error}</p>} 
+          </form>
         </div>
-
       </div>
+
+        <div className={`${Style["container-leftside"]} ${Style["container-leftside-signin"]}`}>
+          <h1>AINDA NÃO TEM CONTA?</h1>
+          <button className={Style["btn-signin-left"]} type="submit">Cadastrar</button>
+          {error && <p className={Style["error"]}>{error}</p>} 
+        </div>
     </div>
   );
 }
