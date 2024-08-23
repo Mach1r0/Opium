@@ -1,12 +1,9 @@
+'use client';
 import React, { useEffect, useState } from "react";
 import style from "../style/sport.module.css";
 import { GrLinkNext, GrLinkPrevious } from "react-icons/gr";
+import { fetchProducts } from "@/app/utils/Fetch";  
 
-async function getData() {
-  const response = await fetch("http://localhost:8000/products/ctr-product/");
-  const data = await response.json();
-  return data;
-}
 
 export default function Sport() {
   const [products, setProducts] = useState([]);
@@ -15,7 +12,7 @@ export default function Sport() {
 
   useEffect(() => {
     async function fetchData() {
-      const productsData = await getData();
+      const productsData = await fetchProducts();
       if (productsData && Array.isArray(productsData.results)) {
         setProducts(productsData.results);
       }
@@ -65,7 +62,7 @@ export default function Sport() {
           displayedProducts.map((product, index) => (
             <div key={index} className={style["sport-item"]}>
               <img src={product.image} alt={product.name} />
-              <p>{product.name}</p>
+              <p>{product.sport}</p>
               <button>CONFIRA</button>
             </div>
           ))
