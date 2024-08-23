@@ -1,19 +1,62 @@
-.catalo-container{
+.catalo-container {
     display: flex;
     flex-direction: column;
-    background-color: beige;
     width: 100%;
+    background-color: black;
+    padding: 20px;
+    align-items: center;
 }
 
-.catalog-items{
+.catalog-items {
     display: flex;
     gap: 1rem;
-    border-radius: 10px;   
-    background-color: aqua;
+    border-radius: 10px; 
+    height: 100%;  
+    align-items: center;
+    justify-content: center; /* Center the items */
+    padding: 20px;
+    width: 100%;
 }
 
-.catalog-items img{
-    width: 100%;
-    height: 100%;
+.item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    padding: 10px;
     border-radius: 10px;
+    max-width: 200px; /* Restrict the width of each item */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+    text-align: center;
+}
+
+.item img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    object-fit: cover; 
+}
+
+.item p {
+    margin: 0;
+    font-size: 14px;
+    color: black;
+}
+
+.navigation-buttons {
+    margin-top: 20px;
+}
+
+.navigation-buttons button {
+    background-color: black;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.navigation-buttons button:hover {
+    background-color: darkgrey;
 }

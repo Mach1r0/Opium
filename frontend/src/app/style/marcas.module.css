@@ -1,29 +1,76 @@
 .container-brands {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 20px;
-  }
-  
-  .brands {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .brand-item {
-    margin: 0 10px;
-  }
-  
-  .button-style {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  background-color: black;
+  padding: 20px;
+  align-items: center; 
+}
+
+.container-brands h1 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  width: 100%;
+  text-align: left;
+  padding-left: 180px;
+}
+
+.brands {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.brand-item {
+  position: relative;
+  overflow: hidden;
+  margin: 0 10px;
+  border-radius: 10px; 
+}
+
+.brand-item img {
+  width: 270px;
+  height: 174px;
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+  object-fit: cover;
+}
+
+.brand-item img:hover {
+  transform: scale(1.1);
+}
+
+.button-style {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  display: flex;
+}
+
+.button-prev-style, .button-next-style {
+  cursor: pointer;
+  color: white;
+  font-size: 20px;
+  padding: 10px; 
+  margin: 0 100px; 
+}
+
+.button-prev-style:disabled,
+.button-next-style:disabled {
+  cursor: not-allowed;
+}
+
+.ver-mais{
+  text-decoration: underline;
+  padding: 10px 20px;
+  border-radius: 10px;
+}
+
+.ver-mais:hover{
+  background-color: #fff;
+  transition: 250ms;
+  color: black;
+  border-radius: 10px;
+} 

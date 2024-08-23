@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import style from "../style/catalogo.module.css";
 import { fetchProducts } from "@/app/utils/Fetch";
 import Link from "next/link";
-import { GrLinkNext } from "react-icons/gr";
-import { GrLinkPrevious } from "react-icons/gr";
+import { ImNext } from "react-icons/im";
+import { ImPrevious } from "react-icons/im";
 
 export default function Catalogo() {
   const [products, setProducts] = useState([]);
@@ -14,7 +14,7 @@ export default function Catalogo() {
   useEffect(() => {
     async function fetchData() {
       const productsData = await fetchProducts();
-      
+
       if (productsData && Array.isArray(productsData.results)) {
         setProducts(productsData.results);
       } else {
@@ -46,27 +46,29 @@ export default function Catalogo() {
       <div className={style["catalo-container"]}>
         <h1>CATÁLOGO</h1>
         <div className={style["catalog-items"]}>
-        <button onClick={handlePrev} disabled={currentPage === 0}>
-          <GrLinkPrevious />
-        </button>
+          <button onClick={handlePrev} disabled={currentPage === 0}>
+            <ImPrevious />
+          </button>
           {displayedProducts.map((product, index) => (
             <div key={index} className={style["item"]}>
               <img src={product.image} alt={product.name} />
-              <Link href='/'>
-                <p>
-                  {product.name}
-                </p>
+              <Link href="/">
+                <p>{product.name}</p>
               </Link>
               <p>{product.price}</p>
             </div>
           ))}
-        <button onClick={handleNext} disabled={(currentPage + 1) * itemsPerPage >= products.length}>
-          <GrLinkNext />
-        </button>
+          <button
+            onClick={handleNext}
+            disabled={(currentPage + 1) * itemsPerPage >= products.length}
+          >
+            <ImNext />
+          </button>
         </div>
         <div className={style["navigation-buttons"]}>
-
-          
+          <Link href="/catalogo">
+            <button>Ver mais</button>
+          </Link>
         </div>
       </div>
     </>

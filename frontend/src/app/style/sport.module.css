@@ -78,12 +78,19 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
-
 .see-more {
   background-color: transparent;
-  border: 1px solid #fff;
   color: #fff;
   padding: 10px 20px;
   margin-top: 20px;
   cursor: pointer;
+  text-decoration: underline;
+  border-radius: 10px;
+}
+
+.see-more:hover {
+  background-color: #fff;
+  transition: 250ms;
+  color: #000;
+  border-radius: 10px;
 }
