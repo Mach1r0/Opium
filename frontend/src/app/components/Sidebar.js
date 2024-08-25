@@ -39,10 +39,12 @@ const Sidebar = ({ toggleSidebar }) => {
                   <CgProfile />
                   Perfil
                 </a>) : (
+              <Link href="/login" legacyBehavior>
                 <a>
                   <CgProfile />
                   Entrar
                 </a>
+              </Link>
               )}
             </Link>
           </li>

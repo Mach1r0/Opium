@@ -51,11 +51,12 @@ export default function Signin() {
 
   return (
     <div className={Style["container-all"]}>
-
+      <div className={Style["container-rightSide"]}>
+        <h1>CADASTRAR USANDO MINHAS REDES SOCIAIS</h1>
+      </div>
       <div className={Style["container-content"]}>
-        <h1> ENTRE COM SUA CONTA </h1>
-        <p> Entrar usando minhas redes sociais </p>
-
+        <h1>ENTRE COM SUA CONTA</h1>
+        <p>Entrar usando minhas redes sociais</p>
         <div className={Style["signup-container"]}>
           <button 
             className={Style["signup-icon"]}
@@ -76,11 +77,9 @@ export default function Signin() {
             <FaApple />
           </button>
         </div>
-
         <div className="flex w-full flex-col border-opacity-50">
           <div className="divider">OU</div>
         </div>
-
         <form className={Style["container-form"]} onSubmit={handleSignup}>
           <input 
             className={Style["signup-input"]}
@@ -99,11 +98,6 @@ export default function Signin() {
           <button className={Style["btn-signup"]} type="submit">Entrar</button>
           {error && <p className={Style["error"]}>{error}</p>} 
         </form>
-
-        <div className={Style["container-leftSide"]}>
-          <h1> CADASTRAR USANDO MINHAS REDES SOCIAIS </h1>
-        </div>
-
       </div>
     </div>
   );

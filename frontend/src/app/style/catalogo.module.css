@@ -7,13 +7,16 @@
     align-items: center;
 }
 
+.catalo-container h1{
+    color: black;
+}
 .catalog-items {
     display: flex;
-    gap: 1rem;
+    gap: 4rem;
     border-radius: 10px; 
     height: 100%;  
     align-items: center;
-    justify-content: center; /* Center the items */
+    justify-content: center;
     padding: 20px;
     width: 100%;
 }
@@ -25,14 +28,15 @@
     background-color: white;
     padding: 10px;
     border-radius: 10px;
-    max-width: 200px; /* Restrict the width of each item */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+    width: 200px;
+    height: 250px; 
+    box-shadow: 0 2px 8px rgba(255, 0, 0, 0.2);
     text-align: center;
 }
 
 .item img {
     width: 100%;
-    height: auto;
+    height: 150px; 
     border-radius: 10px;
     margin-bottom: 10px;
     object-fit: cover; 
@@ -44,19 +48,27 @@
     color: black;
 }
 
-.navigation-buttons {
+.see-more {
     margin-top: 20px;
 }
 
-.navigation-buttons button {
+.see-more button {
     background-color: black;
     color: white;
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    text-decoration: underline;
+    font-size: 15px;
 }
 
-.navigation-buttons button:hover {
-    background-color: darkgrey;
+.see-more button:hover {
+    background-color: white;
+    color: black;
+    transition: 250ms;
+}
+
+.button-prev-style, .button-next-style{
+    color: white;
+    font-size: 40px;
 }

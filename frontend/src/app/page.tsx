@@ -6,6 +6,7 @@ import Sport from "../app/components/sport";
 import Brands from "../app/components/Marcas";
 import Catalogo from "../app/components/catalogo";
 import { fetchProducts, fetchBrands } from "@/app/utils/Fetch";
+import Sale from '../app/components/sale'; 
 
 export default function Home() {
   const { token } = useAuth();
@@ -46,15 +47,7 @@ export default function Home() {
     <main className={style["main"]}>
       <div className={style["container-all"]}>
         <div className={style["container-header"]}>
-          <div className={style["sale"]}>
-            <h1>SALE</h1>
-            <p>Não perca! Produtos exclusivos!</p>
-          </div>
-          <img
-            src="/path/to/your/header-image.png"
-            alt="Header"
-            className={style["header-img"]}
-          />
+          <Sale />
         </div>
 
         <div className={style["container-catalog"]}>

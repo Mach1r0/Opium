@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import React, { useEffect, useState } from "react";
 import style from "../style/catalogo.module.css";
 import { fetchProducts } from "@/app/utils/Fetch";
@@ -46,7 +46,8 @@ export default function Catalogo() {
       <div className={style["catalo-container"]}>
         <h1>CATÁLOGO</h1>
         <div className={style["catalog-items"]}>
-          <button onClick={handlePrev} disabled={currentPage === 0}>
+          <button className={style["button-prev-style"]}
+            onClick={handlePrev} disabled={currentPage === 0}>
             <ImPrevious />
           </button>
           {displayedProducts.map((product, index) => (
@@ -58,16 +59,16 @@ export default function Catalogo() {
               <p>{product.price}</p>
             </div>
           ))}
-          <button
+          <button className={style["button-next-style"]}
             onClick={handleNext}
             disabled={(currentPage + 1) * itemsPerPage >= products.length}
           >
             <ImNext />
           </button>
         </div>
-        <div className={style["navigation-buttons"]}>
+        <div className={style["see-more"]}>
           <Link href="/catalogo">
-            <button>Ver mais</button>
+            <button >VER MAIS</button>
           </Link>
         </div>
       </div>

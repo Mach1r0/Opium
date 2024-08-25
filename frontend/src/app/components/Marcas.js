@@ -14,7 +14,11 @@ export default function Brands() {
     async function loadBrands() {
       try {
         const brandsData = await fetchBrands();
-        setBrands(brandsData);
+        if (brandsData && Array.isArray(brandsData)) {
+          setBrands(brandsData);
+        } else {
+          console.error('Dados de marcas não são um array:', brandsData);
+        }
       } catch (error) {
         console.error('Erro ao buscar marcas:', error);
       }
@@ -32,7 +36,7 @@ export default function Brands() {
   const handlePrev = () => {
     if (currentPage > 0) {
       setCurrent(prevPage => prevPage - 1);
-    }
+  }
   };
 
   const displayBrands = brands.slice(
@@ -44,15 +48,27 @@ export default function Brands() {
     <div className={style['container-brands']}>
       <h1>NAVEGUE POR MARCAS</h1>
       <div className={style['brands']}>
-        <button className={style['button-prev-style']} onClick={handlePrev} disabled={currentPage === 0}>
+        <button 
+          className={style['button-prev-style']} 
+          onClick={handlePrev} 
+          disabled={currentPage === 0}
+        >
           <GrLinkPrevious />
         </button>
-        {Array.isArray(displayBrands) && displayBrands.map((brand, index) => (
-          <div key={index} className={style['brand-item']}>
-            <img src={brand.image} alt={brand.nome} />
-          </div>
-        ))}
-        <button className={style['button-next-style']} onClick={handleNext} disabled={(currentPage + 1) * itemsPerPage >= brands.length}>
+        {displayBrands.length > 0 ? (
+          displayBrands.map((brand, index) => (
+            <div key={index} className={style['brand-item']}>
+              <img src={brand.image} alt={brand.nome} />
+            </div>
+          ))
+        ) : (
+          <p style={{ color: 'white' }}>Nenhuma marca disponível</p>
+        )}
+        <button 
+          className={style['button-next-style']} 
+          onClick={handleNext} 
+          disabled={(currentPage + 1) * itemsPerPage >= brands.length}
+        >
           <GrLinkNext />
         </button>
       </div>
