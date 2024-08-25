@@ -98,7 +98,7 @@ export default function Signup() {
         </form>
       </div>
 
-      <div className={Style["container-leftSide"]}>
+      <div className={Style["container-leftside"]}>
         <h1>CADASTRAR USANDO MINHAS REDES SOCIAIS</h1>
         <div className={Style["signup-container"]}>
           <button

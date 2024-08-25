@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Style from "../style/signin.module.css";
+import Style from "../style/signup.module.css";
 import { useRouter } from "next/navigation";
 import { BiLogoGmail } from "react-icons/bi";
 import { FaFacebookF, FaApple } from "react-icons/fa";
@@ -59,19 +59,19 @@ export default function Signin() {
         <p>Entrar usando minhas redes sociais</p>
         <div className={Style["signup-container"]}>
           <button 
-            className={Style["signup-icon"]}
+            className={`${Style["signup-icon"]} ${Style["signin-icon"]}`}
             onClick={() => handleRedirect("https://accounts.google.com/signin")}
           >
             <BiLogoGmail />
           </button>
           <button 
-            className={Style["signup-icon"]}
+            className={`${Style["signup-icon"]} ${Style["signin-icon"]}`}
             onClick={() => handleRedirect("https://www.facebook.com/login")}
           >
             <FaFacebookF />
           </button>
           <button 
-            className={Style["signup-icon"]}
+            className={`${Style["signup-icon"]} ${Style["signin-icon"]}`}
             onClick={() => handleRedirect("https://appleid.apple.com/account")}
           >
             <FaApple />
@@ -99,6 +99,12 @@ export default function Signin() {
           {error && <p className={Style["error"]}>{error}</p>} 
         </form>
       </div>
+
+        <div className={`${Style["container-leftside"]} ${Style["container-leftside-signin"]}`}>
+          <h1>AINDA NÃO TEM CONTA?</h1>
+          <button className={Style["btn-signin-left"]} type="submit">Cadastrar</button>
+          {error && <p className={Style["error"]}>{error}</p>} 
+        </div>
     </div>
   );
 }
