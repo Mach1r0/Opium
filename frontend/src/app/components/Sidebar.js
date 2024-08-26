@@ -33,7 +33,7 @@ const Sidebar = ({ toggleSidebar }) => {
             </Link>
           </div>
           <li className={styles["bar-below"]}>
-            <Link href="/" legacyBehavior>
+            <Link href="/perfil" legacyBehavior>
               { token ? (
                 <a>
                   <CgProfile />

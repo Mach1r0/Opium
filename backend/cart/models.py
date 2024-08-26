@@ -4,7 +4,10 @@ from core.models import TimeStampedModel
 from django.contrib.auth import get_user_model
 from django.dispatch import receiver
 from django.db.models.signals import post_save
+from django.db import IntegrityError
+import logging
 
+logger = logging.getLogger(__name__)
 User = get_user_model()
 
 class Cart(TimeStampedModel):
@@ -17,7 +20,10 @@ class Cart(TimeStampedModel):
 @receiver(post_save, sender=User)
 def create_user_cart(sender, instance, created, **kwargs):
     if created:
-        Cart.objects.create(user=instance)
+        try:
+            Cart.objects.create(user=instance)
+        except IntegrityError as e:
+            logger.error(f"Failed to create cart for user {instance.username}: {e}")
 
 class CartItem(TimeStampedModel):
     cart = models.ForeignKey(Cart, related_name="cart_items", on_delete=models.CASCADE)

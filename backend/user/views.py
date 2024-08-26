@@ -12,12 +12,20 @@ import jwt
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.generics import RetrieveAPIView
 from rest_framework.permissions import AllowAny
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.decorators import action
+from rest_framework.response import Response
 
 logger = logging.getLogger(__name__)
-
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+    @action(detail=False, methods=['get'])
+    def me(self, request):
+        serializer = self.get_serializer(request.user)
+        return Response(serializer.data)
 
 class RegisterView(APIView):
     permission_classes = [AllowAny]
@@ -55,7 +63,7 @@ class Login(APIView):
         token = jwt.encode(payload, settings.SECRET_KEY, algorithm='HS256')
         
         return Response({
-            'token': token,
+            'access': token, 
             'user_id': user.id,
             'nickname': user.nickname
         }, status=status.HTTP_200_OK)

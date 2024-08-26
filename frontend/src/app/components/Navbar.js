@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Head from "next/head";
 import styles from "../style/navbar.module.css";
@@ -7,11 +7,28 @@ import Sidebar from "./Sidebar";
 import { IoIosMenu } from "react-icons/io";
 import { CiSearch } from "react-icons/ci";
 import { useAuth } from "../Context/AuthContext";
-import {token} from '../Context/AuthContext';
+import { fetchUser } from '../utils/Fetch';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const { token } = useAuth(); 
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    async function fetchData() {
+      const userData = await fetchUser();
+      
+      if (userData) {
+        setUser(userData); // Set the fetched user data directly
+      } else {
+        console.error("Fetched user data is not valid:", userData);
+      }
+    }
+
+    if (token) {
+      fetchData();
+    }
+  }, [token]);
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -47,8 +64,8 @@ export default function Navbar() {
             {token ? (
               <button>
                 <Link href="/perfil" legacyBehavior>
-                  <button  className={styles['container-perfil']}>
-                    Perfil
+                  <button className={styles['container-perfil']}>
+                    {user ? user.nome : "Perfil"}
                   </button>
                 </Link>
               </button>
