@@ -115,7 +115,7 @@
 
 /* Info BTN */
 .info-btn {
-    margin: 2em 4.5em 10em;
+    margin: 2em 4.5em 5em;
     padding: 1em;
     text-align: center;
     font-weight: 500;
@@ -134,4 +134,54 @@
 .info-right-container {
     background-color: aquamarine;
     width: 50%;
+}
+
+/* Carousel */
+.info-carousel h1 {
+    font-size: 1.5em;
+    padding: 1em 4em;
+    font-weight: bold;
+    color: black;
+}
+
+.carousel-details {
+    display: flex;
+    align-items: center;
+    gap: 5em;
+    padding: 0 10em 2em;
+}
+
+.carousel {
+    padding-bottom: 3em;
+    background-color: #c9c9c9;
+    border-radius: 5px;
+    border: 0.5px solid #d4d4d4;
+    box-shadow: 10px 10px 10px rgba(0.1, 0.1, 0.1, 0.1);
+}
+
+.carousel p {
+    padding: 0 1em;
+    color: black;
+}
+
+.carousel h1 {
+    color: rgb(209, 209, 209);
+    padding: 0 1em;
+}
+
+.carousel h2 {
+    color: rgb(209, 209, 209);
+    padding: 0 1em;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: black;
+}
+
+.tenis-example {
+    width: 20em;
+    height: 10em;
+    padding: 0.5em;
+    border-radius: 13px;
+    margin-bottom: 1em;
+    
 }
