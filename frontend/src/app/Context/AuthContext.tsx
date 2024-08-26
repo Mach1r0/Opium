@@ -1,6 +1,5 @@
-"use client";
+'use client';
 import { createContext, useContext, useEffect, useState } from "react";
-import axios from "axios";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 
@@ -15,10 +14,12 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
+    const storedUser = localStorage.getItem("user");
     const cookieToken = Cookies.get("jwt");
 
     if (storedToken) {
       setToken(storedToken);
+      setUser(JSON.parse(storedUser));
     } else if (cookieToken) {
       setToken(cookieToken);
       localStorage.setItem("token", cookieToken);
@@ -26,6 +27,7 @@ export const AuthProvider = ({ children }) => {
 
     setIsReady(true);
   }, []);
+
   const login = async (nickname, password) => {
     const data = { nickname, password };
 
@@ -39,14 +41,12 @@ export const AuthProvider = ({ children }) => {
       });
 
       const result = await response.json();
-      
-      console.log("Login response:", result);
 
       if (response.ok) {
-        localStorage.setItem("token", result.access); // If backend returns 'access'
-        localStorage.setItem("token", result.access); // Store the token
-        console.log("Stored token:", localStorage.getItem("token")); // Log the stored token
-                setToken(result.access);
+        localStorage.setItem("token", result.access);
+        localStorage.setItem("user", JSON.stringify(result.user)); // Save full user info
+        setToken(result.access);
+        setUser(result.user); // Set full user info
         router.push("/");
       } else {
         setError(result.detail || "Login failed");
@@ -61,6 +61,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     setToken(null);
+    setUser(null);
     router.push("/");
   };
 

@@ -38,6 +38,16 @@ class RegisterView(APIView):
             status=status.HTTP_201_CREATED
         )
 
+from django.contrib.auth import authenticate
+from rest_framework.exceptions import AuthenticationFailed
+from rest_framework.response import Response
+from rest_framework import status
+import jwt
+from django.conf import settings
+import datetime
+from .serializers import LoginSerializer
+from .models import User  # Import the User model if not already imported
+
 class Login(APIView):
     authentication_classes = []  
     permission_classes = [] 
@@ -62,11 +72,20 @@ class Login(APIView):
 
         token = jwt.encode(payload, settings.SECRET_KEY, algorithm='HS256')
         
+        # Fetch additional user details
+        user_data = {
+            'id': user.id,
+            'nickname': user.nickname,
+            'first_name': user.first_name,
+            'last_name': user.last_name,
+            'email': user.email
+        }
+        
         return Response({
             'access': token, 
-            'user_id': user.id,
-            'nickname': user.nickname
+            'user': user_data
         }, status=status.HTTP_200_OK)
+
     
 class AddressViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
