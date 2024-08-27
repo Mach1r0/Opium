@@ -1,51 +1,88 @@
-'use client';
-import React, { useEffect } from 'react';
-import Style from '@/app/style/profile.module.css';
-import { useAuth } from '@/app/Context/AuthContext';
+"use client";
+import React, { useEffect, useState } from "react";
+import Style from "@/app/style/profile.module.css";
+import { useAuth } from "@/app/Context/AuthContext";
 
 export default function Perfil() {
   const { user } = useAuth();
 
+  const [nome, setNome] = useState(user?.nome || "");
+  const [nickname, setNickname] = useState(user?.nickname || "");
+  const [email, setEmail] = useState(user?.email || "");
+  const [celular, setCelular] = useState(user?.phone || "");
+
   useEffect(() => {
-    console.log(user); // Log user object to check its structure
+    console.log(user);
+    if (user) {
+      setNome(user.nome);
+      setNickname(user.nickname);
+      setEmail(user.email);
+      setCelular(user.phone);
+    }
   }, [user]);
 
+  const handleNomeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNome(e.target.value);
+  };
+
+  const handleNicknameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNickname(e.target.value);
+  };
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
+
+  const handleCelularChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCelular(e.target.value);
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log({ nome, nickname, email, celular });
+  };
+
   return (
-    <div className={Style['container-all']}>
-      <div className={Style['container-form']}>
-        <h1>Perfil</h1>
-        <form>
-          <label>Nome</label>
+    <div className={Style["container-all"]}>
+      <div className={Style["container-form"]}>
+        <h1>PERFIL</h1>
+        <form onSubmit={handleSubmit}>
+          <label>Nome Completo</label>
           <input
             type="text"
             name="name"
             placeholder="Nome"
-            value={user?.nickname || ''} // Ensure the property matches
-            readOnly
+            value={nome}
+            onChange={handleNomeChange}
           />
-          <label>Sobrenome</label>
+          <label>Nickname</label>
           <input
             type="text"
-            name="last_name"
-            placeholder="Sobrenome"
-            value={user?.last_name || ''} // Ensure the property matches
-            readOnly
+            name="nickname"
+            placeholder="Nickname"
+            value={nickname}
+            onChange={handleNicknameChange}
           />
           <label>Email</label>
           <input
             type="email"
             name="email"
             placeholder="Email"
-            value={user?.email || ''} // Ensure the property matches
-            readOnly
+            value={email}
+            onChange={handleEmailChange}
           />
-          <label>Senha</label>
+          <label>Celular</label>
           <input
-            type="password"
-            name="password"
-            placeholder="Senha"
+            type="text"
+            name="celular"
+            placeholder="Celular"
+            value={celular}
+            onChange={handleCelularChange}
           />
-          <button type="submit">Salvar</button>
+
+          <div className={Style["button-container"]}>
+            <button type="submit">SALVAR</button>
+          </div>
         </form>
       </div>
     </div>

@@ -91,14 +91,12 @@ class UserSerializer(serializers.ModelSerializer):
         fields = [
             "id",
             "nickname",
+            'nome',
             "email",
-            "first_name",
-            "last_name",
             "phone",
             "picture",
             "gender",
             "about",
-            "is_active",
             "slug",
         ]
     

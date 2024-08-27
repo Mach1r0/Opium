@@ -1,9 +1,86 @@
-.container-all{
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+.container-all {
     display: flex;
     justify-content: center;
+    height: 100vh;
+    font-family: "Inter", sans-serif;
 }
 
-.container-form form{
+.container-form {
     display: flex;
     flex-direction: column;
+    gap: rem;
+    margin-top: 50px;
+}
+
+.container-form form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.2rem;
+}
+
+.container-form input {
+    padding: 0.5rem;
+    border: none; 
+    border-bottom: 1px solid #170000;
+    border-radius: 0; 
+    width: 400px;
+}
+
+.container-form button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #170000;
+    background-color: black;
+    color: white;
+    border-radius: 5px;
+    font-size: 15px;
+    width: 200px;
+    height: 40px;
+}
+
+
+.container-form button:hover {
+    cursor: pointer;
+}
+
+.container-form input:focus {
+    border-bottom: 2px solid #170000;
+    outline: none;
+}
+
+.container-form input::placeholder {
+    color: #170000;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center; 
+    margin-top: 1rem;
+}
+
+.container-form button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #170000;
+    background-color: black;
+    color: white;
+    border-radius: 5px;
+    font-size: 15px;
+    width: 200px;
+    height: 40px;
+}
+
+.container-form button:hover {
+    cursor: pointer;
+}
+
+.container-form h1{
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 30px;
 }

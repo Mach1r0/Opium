@@ -36,7 +36,7 @@ const Sidebar = ({ toggleSidebar }) => {
               {token && user ? (
                 <a>
                   <CgProfile />
-                  {user.nickname} {/* Display the nickname */}
+                  {user.nickname} 
                 </a>
               ) : (
                 <Link href="/login" legacyBehavior>
@@ -55,28 +55,28 @@ const Sidebar = ({ toggleSidebar }) => {
             </a>
           </li>
           <li>
-            <Link href="loja" legacyBehavior>
+            <Link href="/loja" legacyBehavior>
               <a>
                 <FaStore /> Nossa loja
               </a>
             </Link>
           </li>
           <li>
-            <Link href="contactus" legacyBehavior>
+            <Link href="/contactus" legacyBehavior>
               <a>
                 <RiFolderWarningFill /> Fale conosco
               </a>
             </Link>
           </li>
           <li>
-            <Link href="trocas" legacyBehavior>
+            <Link href="/trocas" legacyBehavior>
               <a>
                 <MdCurrencyExchange /> Trocas e devoluções
               </a>
             </Link>
           </li>
           <li className={styles["bar-below"]}>
-            <Link href="aboutus" legacyBehavior>
+            <Link href="/aboutus" legacyBehavior>
               <a>
                 <LuNewspaper /> Sobre nós
               </a>

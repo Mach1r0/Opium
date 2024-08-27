@@ -5,6 +5,7 @@ import banner2 from '../imgs/banner2.jpg';
 import banner3 from '../imgs/banner3.jpg';
 import banner4 from '../imgs/banner4.jpg';
 import { ImNext, ImPrevious } from "react-icons/im";
+import './Sale.css'; // Import the custom CSS file
 
 export default function Sale() {
   const banners = [banner1, banner2, banner3, banner4];
@@ -27,7 +28,7 @@ export default function Sale() {
   };
 
   return (
-    <div className="relative h-72 bg-cover bg-center" style={{ backgroundImage: `url(${banners[currentBannerIndex].src})` }}>
+    <div className="banner" style={{ backgroundImage: `url(${banners[currentBannerIndex].src})` }}>
       <button
         onClick={prevBanner}
         className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-transparent border-none cursor-pointer text-white text-3xl"

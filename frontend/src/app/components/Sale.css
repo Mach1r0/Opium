@@ -1,0 +1,7 @@
+.banner {
+  position: relative;
+  height: 18rem; /* h-72 in Tailwind CSS */
+  background-size: cover;
+  background-position: center;
+  z-index: 10;
+}
