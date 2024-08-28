@@ -9,7 +9,6 @@ import './Sale.css'; // Import the custom CSS file
 
 export default function Sale() {
   const banners = [banner1, banner2, banner3, banner4];
-
   const [currentBannerIndex, setCurrentBannerIndex] = useState(0);
 
   useEffect(() => {
@@ -31,13 +30,13 @@ export default function Sale() {
     <div className="banner" style={{ backgroundImage: `url(${banners[currentBannerIndex].src})` }}>
       <button
         onClick={prevBanner}
-        className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-transparent border-none cursor-pointer text-white text-3xl"
+        className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-transparent border-none cursor-pointer text-white text-3xl z-20"
       >
         <ImPrevious />
       </button>
       <button
         onClick={nextBanner}
-        className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-transparent border-none cursor-pointer text-white text-3xl"
+        className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-transparent border-none cursor-pointer text-white text-3xl z-20"
       >
         <ImNext />
       </button>

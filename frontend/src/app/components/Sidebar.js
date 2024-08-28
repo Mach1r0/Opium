@@ -16,7 +16,7 @@ const Sidebar = ({ toggleSidebar }) => {
   return (
     <div className={`drawer drawer-end ${styles["drawer-button"]}`}>
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
-      <div className="drawer-side">
+      <div className="drawer-side z-[100]">
         <label
           htmlFor="my-drawer-4"
           aria-label="close sidebar"
