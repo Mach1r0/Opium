@@ -4,6 +4,7 @@ from .models import User, Address
 from .serializers import UserSerializer, RegisterSerializer, LoginSerializer, AddressSerializer, CreateAddressSerializer
 from rest_framework.views import APIView
 from django.contrib.auth import authenticate
+from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.response import Response
 from django.conf import settings
@@ -16,6 +17,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.exceptions import InvalidToken, TokenError
 
 logger = logging.getLogger(__name__)
 class UserViewSet(viewsets.ModelViewSet):
@@ -38,15 +41,6 @@ class RegisterView(APIView):
             status=status.HTTP_201_CREATED
         )
 
-from django.contrib.auth import authenticate
-from rest_framework.exceptions import AuthenticationFailed
-from rest_framework.response import Response
-from rest_framework import status
-import jwt
-from django.conf import settings
-import datetime
-from .serializers import LoginSerializer
-from .models import User  # Import the User model if not already imported
 
 class Login(APIView):
     authentication_classes = []  
@@ -64,14 +58,10 @@ class Login(APIView):
         if user is None:
             raise AuthenticationFailed('User not found')
 
-        payload = {
-            'id': user.id,
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
-            'iat': datetime.datetime.utcnow()
-        }
+        # Create refresh and access tokens
+        refresh = RefreshToken.for_user(user)
+        access = refresh.access_token
 
-        token = jwt.encode(payload, settings.SECRET_KEY, algorithm='HS256')
-        
         # Fetch additional user details
         user_data = {
             'id': user.id,
@@ -82,11 +72,11 @@ class Login(APIView):
         }
         
         return Response({
-            'access': token, 
+            'refresh': str(refresh),
+            'access': str(access),
             'user': user_data
         }, status=status.HTTP_200_OK)
 
-    
 class AddressViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     serializer_class = AddressSerializer
