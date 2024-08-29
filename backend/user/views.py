@@ -13,8 +13,6 @@ import jwt
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.generics import RetrieveAPIView
 from rest_framework.permissions import AllowAny
-from rest_framework.permissions import IsAuthenticated
-from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -41,6 +39,18 @@ class RegisterView(APIView):
             status=status.HTTP_201_CREATED
         )
 
+class UpdateUserView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def put(self, request):
+        print("Request received")
+        user = request.user
+        print(f"Authenticated user: {user}")
+        serializer = UserSerializer(data=request.data, instance=user, partial=True)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class Login(APIView):
     authentication_classes = []  
@@ -58,11 +68,9 @@ class Login(APIView):
         if user is None:
             raise AuthenticationFailed('User not found')
 
-        # Create refresh and access tokens
         refresh = RefreshToken.for_user(user)
         access = refresh.access_token
 
-        # Fetch additional user details
         user_data = {
             'id': user.id,
             'nickname': user.nickname,
